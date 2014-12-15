@@ -1,17 +1,18 @@
 <?php
 
-require_once __DIR__ .'/../classes/Util.php';
+use Selim\Util;
+use Selim\SiteConfig;
 
 class UtilTests extends PHPUnit_Framework_TestCase {
     public function testFilterSitesByName()
     {
         $sites = array(
-            'name1' => "VAL",
-            'name2' => "VAL",
-            'sitename3' => "VAL",
-            'sitename4' => "VAL",
-            'testFIVE' => "VAL",
-            'testSIX' => "VAL",
+            new SiteConfig('name1',"VAL"),
+            new SiteConfig('name2',"VAL"),
+            new SiteConfig('sitename3',"VAL"),
+            new SiteConfig('sitename4',"VAL"),
+            new SiteConfig('testFIVE',"VAL"),
+            new SiteConfig('testSIX',"VAL"),
         );
 
         $filter_startswith_name = "^name";
@@ -38,4 +39,3 @@ class UtilTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals(2, count($si));
     }
 }
- 
