@@ -66,11 +66,11 @@ class SilverstripePage {
 
     private function readEnvironmentType(){
         $et = $this->matchInConfigPhp("/\\s*Director::set_environment_type\\(\\s*['\"](?<env>dev|live|test*)['\"]\\s*\\);/m");
-            if($et && $et["env"]) {
-                $this->envtype = $et["env"][0];
-            }else{
-                $this->envtype = "N/A";
-            }
+        if($et && $et["env"]) {
+            $this->envtype = $et["env"][0];
+        }else{
+            $this->envtype = "N/A";
+        }
 
         if($this->path_configyml ) {
             $content = file_get_contents($this->path_configyml);
