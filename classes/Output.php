@@ -1,5 +1,6 @@
 <?php
-require_once 'Util.php';
+
+namespace Selim;
 
 class Output{
     function __construct(array $pages){

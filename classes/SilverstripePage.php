@@ -1,7 +1,8 @@
 <?php
-require_once 'Util.php';
-require_once  __DIR__ . '/../vendor/autoload.php';
 
+namespace Selim;
+
+use SebastianBergmann\Exporter\Exception;
 use Symfony\Component\Yaml\Yaml;
 
 class SilverstripePage {
@@ -75,7 +76,8 @@ class SilverstripePage {
             $content = file_get_contents($this->path_configyml);
             foreach(preg_split("/^---/m",$content) as $block){
                 try {
-                    $yml = \Symfony\Component\Yaml\Yaml::parse($block);
+                    echo $this->path_root;
+                    $yml = Yaml::parse($block);
                     if ($yml && $yml["Director"] && $yml["Director"]["environment_type"]) {
                         $this->envtype = $yml["Director"]["environment_type"];
                     }

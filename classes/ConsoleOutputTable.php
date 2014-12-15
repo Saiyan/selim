@@ -1,8 +1,6 @@
 <?php
 
-require_once 'Output.php';
-require_once 'IOutput.php';
-require_once  __DIR__ . '/../vendor/pear/console_table/Table.php';
+namespace Selim;
 use \Console_Table;
 
 class ConsoleOutputTable extends Output implements IOutput{

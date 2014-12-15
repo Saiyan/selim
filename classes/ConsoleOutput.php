@@ -1,19 +1,19 @@
 <?php
 
-require_once 'Util.php';
-require_once 'Output.php';
-require_once 'IOutput.php';
+namespace Selim;
 
 class ConsoleOutput extends Output implements IOutput{
     public function write() {
         foreach ($this->pages as $sspage) {
-            echo self::formatSSpage($sspage);
+            if($sspage instanceof SilverstripePage) {
+                echo self::formatSSpage($sspage);
+            }
         }
     }
 
     private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n";
 
-    private static function formatSSpage(\SilverstripePage $sspage){
+    private static function formatSSpage(SilverstripePage $sspage){
         $format = self::$format_default;
         $placeholders = array(
             "%n" => PHP_EOL,

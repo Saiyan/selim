@@ -1,5 +1,7 @@
 <?php
 
+namespace Selim;
+
 class Util {
 
     public static $path_config = "config.json";
@@ -15,7 +17,11 @@ class Util {
         return json_decode(file_get_contents(self::$path_config),true);
     }
 
-    public static function saveSites($sites){
+    public static function saveSites(array $sites){
+        foreach($sites as $s){
+
+        }
+
         file_put_contents(self::$path_config,json_encode($sites));
     }
 
@@ -48,7 +54,7 @@ class Util {
         return $bool ? 'true' : 'false';
     }
 
-    public static function filterSitesByName($sites,$filterRegex) {
+    public static function filterSitesByName(array $sites,$filterRegex) {
         $arr = array();
         foreach($sites as $n => $p){
             if(preg_match("/$filterRegex/",$n)){
@@ -58,7 +64,7 @@ class Util {
         return $arr;
     }
 
-    public static function findInArrayWithRegex($arr,$regex) {
+    public static function findInArrayWithRegex(array $arr, $regex) {
         foreach($arr as $a){
             if(preg_match($regex,$a)){
                 return $a;
