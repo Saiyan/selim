@@ -14,7 +14,13 @@ class Util {
     }
 
     public static function loadSites(){
-        return json_decode(file_get_contents(self::$path_config),true);
+        $sites = array();
+        $json = json_decode(file_get_contents(self::$path_config),true);
+        if(!isset($json["sites"])) return null;
+        foreach($json["sites"] as $name => $path){
+            array_push($sites,new SiteConfig($name,$path));
+        }
+        return $sites;
     }
 
     public static function saveSites(array $sites){
@@ -56,9 +62,10 @@ class Util {
 
     public static function filterSitesByName(array $sites,$filterRegex) {
         $arr = array();
-        foreach($sites as $n => $p){
-            if(preg_match("/$filterRegex/",$n)){
-                $arr[$n] = $p;
+        foreach($sites as $sc){
+            if(!$sc instanceof SiteConfig) continue;
+            if(preg_match("/$filterRegex/",$sc->name)){
+                array_push($arr,$sc);
             }
         }
         return $arr;

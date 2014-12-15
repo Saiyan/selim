@@ -11,7 +11,7 @@ class ConsoleOutput extends Output implements IOutput{
         }
     }
 
-    private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n";
+    private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n%n";
 
     private static function formatSSpage(SilverstripePage $sspage){
         $format = self::$format_default;

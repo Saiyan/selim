@@ -18,9 +18,9 @@ class SilverstripePage {
     private $envtype;
     private $modules;
 
-    function __construct($name,$path){
-        $this->name = $name;
-        $this->path_project = realpath($path);
+    function __construct(SiteConfig $sc){
+        $this->name = $sc->name;
+        $this->path_project = realpath($sc->path);
         $this->path_configphp = realpath($this->path_project.'/_config.php');
         $this->path_configyml =  realpath($this->path_project.'/_config/config.yml');
         $this->path_root = realpath($this->path_project.'/..');
@@ -76,7 +76,6 @@ class SilverstripePage {
             $content = file_get_contents($this->path_configyml);
             foreach(preg_split("/^---/m",$content) as $block){
                 try {
-                    echo $this->path_root;
                     $yml = Yaml::parse($block);
                     if ($yml && $yml["Director"] && $yml["Director"]["environment_type"]) {
                         $this->envtype = $yml["Director"]["environment_type"];

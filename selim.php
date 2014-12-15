@@ -10,6 +10,7 @@ function autoload(){
         require_once 'classes/ConsoleOutput.php';
         require_once 'classes/ConsoleOutputTable.php';
         require_once 'classes/SilverstripePage.php';
+        require_once 'classes/SiteConfig.php';
         require_once 'classes/Util.php';
 }
 
@@ -32,17 +33,16 @@ if($argv[1] && $argv[1] === "rm" && $argv[2]){
     return;
 }
 
-
 $sites = Selim\Util::loadSites();
 $filter_name = Selim\Util::findInArrayWithRegex($argv,"/^--filter-name=/");
 if($filter_name){
     $sites = Selim\Util::filterSitesByName($sites, preg_replace("/^--filter-name=/",$filter_name,""));
 }
 
-
 $sspages = array();
-foreach ($sites as $n => $p) {
-    array_push($sspages, new Selim\SilverstripePage($n, $p));
+foreach ($sites as $sc) {
+    if($sc instanceof \Selim\SiteConfig)
+    array_push($sspages, new Selim\SilverstripePage($sc));
 }
 
 if(in_array("--table",$argv)){
