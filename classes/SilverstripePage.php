@@ -5,6 +5,7 @@ namespace Selim;
 use SebastianBergmann\Exporter\Exception;
 use Symfony\Component\Yaml\Yaml;
 
+
 class SilverstripePage {
     private $path_configphp;
     private $path_project;
@@ -76,11 +77,13 @@ class SilverstripePage {
             $content = file_get_contents($this->path_configyml);
             foreach(preg_split("/^---/m",$content) as $block){
                 try {
+                    //Seems like the Yaml parser doesnt like the commas in the first block of the _config.yml
+                    if(preg_match("~'framework/\*','cms/\*'~",$block)) continue;
                     $yml = Yaml::parse($block);
                     if ($yml && $yml["Director"] && $yml["Director"]["environment_type"]) {
                         $this->envtype = $yml["Director"]["environment_type"];
                     }
-                }catch(Exception $e){
+                }catch(\ParseException $e){
                     echo $e->getMessage().PHP_EOL;
                 }
             }

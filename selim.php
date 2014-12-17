@@ -6,7 +6,7 @@ spl_autoload_register(array('AutoLoader', 'loadClass'));
 $config = Selim\SelimConfig::getInstance();
 $sites = $config->getSites();
 
-if($argv[1] && $argv[1] === "add" && $argv[2] && $argv[3]){
+if(isset($argv[1]) && $argv[1] === "add" && isset($argv[2]) && $argv[3]){
     $name = $argv[2];
     $path = $argv[3];
     if(!$config->siteExists($name)){
@@ -19,7 +19,7 @@ if($argv[1] && $argv[1] === "add" && $argv[2] && $argv[3]){
     return;
 }
 
-if($argv[1] && $argv[1] === "rm" && $argv[2]){
+if(isset($argv[1]) && $argv[1] === "rm" && isset($argv[2])){
     $name = $argv[2];
     if($config->siteExists($name)){
         $config->removeSite($name);
