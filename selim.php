@@ -47,11 +47,19 @@ if($filter_module) {
     $sspages = \Selim\Util::filterPagesByModules($sspages, preg_replace("/^--filter-module=/","",$filter_module));
 }
 
+
+$format = Selim\Util::findInArrayWithRegex($argv,"/^--format=/");
+if($format) {
+    $format = preg_replace("/^--format=/","",$format);
+}else{
+    $format = '';
+}
+
 if(in_array("--table",$argv)){
     $output = new Selim\ConsoleOutputTable($sspages);
 }else {
     $output = new Selim\ConsoleOutput($sspages);
 }
 
-$output->write();
+$output->write($format);
 

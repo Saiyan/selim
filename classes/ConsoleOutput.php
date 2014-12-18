@@ -3,18 +3,18 @@
 namespace Selim;
 
 class ConsoleOutput extends Output implements IOutput{
-    public function write() {
+    public function write($format='') {
         foreach ($this->pages as $sspage) {
             if($sspage instanceof SilverstripePage) {
-                echo self::formatSSpage($sspage);
+                echo self::formatSSpage($sspage,$format);
             }
         }
     }
 
     private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n%n";
 
-    private static function formatSSpage(SilverstripePage $sspage){
-        $format = self::$format_default;
+    private static function formatSSpage(SilverstripePage $sspage,$format = ''){
+        $format = $format ? $format : self::$format_default;
         $placeholders = array(
             "%n" => PHP_EOL,
             "%s" => $sspage->getName(),
