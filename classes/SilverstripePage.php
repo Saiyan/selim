@@ -80,7 +80,7 @@ class SilverstripePage {
                     //Seems like the Yaml parser doesnt like the commas in the first block of the _config.yml
                     if(preg_match("~'framework/\*','cms/\*'~",$block)) continue;
                     $yml = Yaml::parse($block);
-                    if ($yml && isset($yml["Director"]) && isset($yml["Director"]["environment_type"])) {
+                    if ($yml && array_key_exists("Director",$yml) && array_key_exists("environment_type",$yml["Director"])) {
                         $this->envtype = $yml["Director"]["environment_type"];
                     }
                 }catch(\ParseException $e){
