@@ -123,6 +123,15 @@ class SilverstripePage {
         return null;
     }
 
+    public function hasModule($regex){
+        foreach($this->modules as $m){
+            if(preg_match($regex,$m) === 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @return string
      */

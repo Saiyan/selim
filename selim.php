@@ -33,7 +33,7 @@ if(isset($argv[1]) && $argv[1] === "rm" && isset($argv[2])){
 
 $filter_name = Selim\Util::findInArrayWithRegex($argv,"/^--filter-name=/");
 if($filter_name){
-    $sites = Selim\Util::filterSitesByName($sites, preg_replace("/^--filter-name=/",$filter_name,""));
+    $sites = Selim\Util::filterSitesByName($sites, preg_replace("/^--filter-name=/","",$filter_name));
 }
 
 $sspages = array();
@@ -42,10 +42,16 @@ foreach ($sites as $sc) {
     array_push($sspages, new Selim\SilverstripePage($sc));
 }
 
+$filter_module = Selim\Util::findInArrayWithRegex($argv,"/^--filter-module=/");
+if($filter_module) {
+    $sspages = \Selim\Util::filterPagesByModules($sspages, preg_replace("/^--filter-module=/","",$filter_module));
+}
+
 if(in_array("--table",$argv)){
     $output = new Selim\ConsoleOutputTable($sspages);
 }else {
     $output = new Selim\ConsoleOutput($sspages);
 }
+
 $output->write();
 
