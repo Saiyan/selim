@@ -25,6 +25,7 @@ class ConsoleOutput extends Output implements IOutput{
             "%mo" =>  self::ModuleText($sspage),
             "%cfgp" => $sspage->getConfigPhpPath(),
             "%cfgy" => $sspage->getConfigYmlPath(),
+            "%root" => $sspage->getRootPath(),
         );
 
         foreach($placeholders as $p => $v){

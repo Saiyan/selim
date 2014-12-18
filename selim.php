@@ -63,3 +63,4 @@ if(in_array("--table",$argv)){
 
 $output->write($format);
 
+echo PHP_EOL;

@@ -181,6 +181,10 @@ class SilverstripePage {
     function getConfigYmlPath(){
         return $this->path_configyml;
     }
+
+    public function getRootPath() {
+        return $this->path_root;
+    }
 }
 
 ?>
