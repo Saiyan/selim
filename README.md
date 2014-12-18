@@ -69,6 +69,7 @@ You can use the following placeholders in your format:
 %mo   //Modules
 %cfgp //Path to _config.php in your project folder
 %cfgy //Path to _config/config.yml in your project folder
+%root //Root directory of your Silverstripe-CMS
 ```
 
 ###--filter-name=
