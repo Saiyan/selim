@@ -7,7 +7,8 @@ class Util {
     public static function stripPhpComments($str){
         $regex_multiline = "/\\/\\*[^\\Z]*\\*\\//m";
         $regex_singleline = "/\\/\\/.*/m";
-        $str = preg_filter($regex_multiline,"",$str);
+        $result = preg_filter($regex_multiline,"",$str);
+        if($result) $str = $result;
         return preg_filter($regex_singleline,"",$str);
     }
 
