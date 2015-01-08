@@ -16,5 +16,7 @@ class SilverstripePageTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(realpath(__DIR__.$projectpath.'/_config.php'),$sspage->getConfigPhpPath());
         $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'),$sspage->getConfigYmlPath());
 
+        $mod_str = implode(" ",$sspage->getModules());
+        $this->assertFalse(strpos($mod_str,"mysite"));
     }
 }

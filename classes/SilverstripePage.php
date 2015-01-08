@@ -92,10 +92,12 @@ class SilverstripePage {
 
     private function readModules(){
         $modules = array();
+        $proj = basename($this->path_project);
+
         if($this->path_root){
             foreach(scandir($this->path_root) as $f){
                 $abs = "$this->path_root/$f";
-                if(is_dir($abs) && realpath("$abs/_config.php")){
+                if(is_dir($abs) && realpath("$abs/_config.php") && $f !== $proj){
                     switch($f){
                         case "assets":
                         case "cms":
