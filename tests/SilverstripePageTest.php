@@ -15,8 +15,21 @@ class SilverstripePageTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('dev',$sspage->getEnvironmentType());
         $this->assertEquals(realpath(__DIR__.$projectpath.'/_config.php'),$sspage->getConfigPhpPath());
         $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'),$sspage->getConfigYmlPath());
+        $this->assertFalse($sspage->hasModule("/mysite/"));
+    }
 
-        $mod_str = implode(" ",$sspage->getModules());
-        $this->assertFalse(strpos($mod_str,"mysite"));
+    public function testPage2(){
+        $projectpath = "/pages/page2/proj";
+
+        $config = new \Selim\SiteConfig("page2",realpath(__DIR__.$projectpath));
+        $sspage = new SilverstripePage($config);
+
+        $this->assertEquals('3', $sspage->getVersion());
+        $this->assertFalse($sspage->hasDefaultAdmin());
+        $this->assertFalse($sspage->hasEmailLogging());
+        $this->assertEquals('live',$sspage->getEnvironmentType());
+        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config.php'),$sspage->getConfigPhpPath());
+        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'),$sspage->getConfigYmlPath());
+        $this->assertFalse($sspage->hasModule("/proj/"));
     }
 }
