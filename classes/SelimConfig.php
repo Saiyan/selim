@@ -9,7 +9,7 @@ class SelimConfig {
 
     public static function getInstance()
     {
-        if (self::$uniqueInstance === null) {
+        if (self::$uniqueInstance === null){
             self::$uniqueInstance = new SelimConfig();
         }
         return self::$uniqueInstance;
@@ -40,14 +40,14 @@ class SelimConfig {
         )));
     }
 
-    public function getSites() {
+    public function getSites(){
         return $this->sites;
     }
 
     public function siteExists($name){
         $exists = false;
-        foreach ($this->sites as $s) {
-            if ($s->name === $name) {
+        foreach ($this->sites as $s){
+            if ($s->name === $name){
                 $exists = true;
                 break;
             }
@@ -55,7 +55,7 @@ class SelimConfig {
         return $exists;
     }
 
-    public function addSite($name, $path) {
+    public function addSite($name, $path){
         array_push($this->sites, new SiteConfig($name,$path));
     }
 

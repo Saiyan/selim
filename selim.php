@@ -38,12 +38,13 @@ if($filter_name){
 
 $sspages = array();
 foreach ($sites as $sc) {
-    if($sc instanceof \Selim\SiteConfig)
-    array_push($sspages, new Selim\SilverstripePage($sc));
+    if($sc instanceof \Selim\SiteConfig){
+        array_push($sspages, new Selim\SilverstripePage($sc));
+    }
 }
 
 $filter_module = Selim\Util::findInArrayWithRegex($argv,"/^--filter-module=/");
-if($filter_module) {
+if($filter_module){
     $sspages = \Selim\Util::filterPagesByModules($sspages, preg_replace("/^--filter-module=/","",$filter_module));
 }
 
@@ -57,7 +58,7 @@ if($format) {
 
 if(in_array("--table",$argv)){
     $output = new Selim\ConsoleOutputTable($sspages);
-}else {
+}else{
     $output = new Selim\ConsoleOutput($sspages);
 }
 

@@ -39,7 +39,7 @@ class Util {
 
     /**
      * @param array $sspages should contain only objects of class SilverstripePage
-     * @return returns an array with all SilverstripePages that match the regex
+     * @return array all SilverstripePages that match the regex
      */
     public static function filterPagesByModules(array $sspages,$filterRegex) {
         $arr = array();
@@ -51,4 +51,4 @@ class Util {
         }
         return $arr;
     }
-} 
+}

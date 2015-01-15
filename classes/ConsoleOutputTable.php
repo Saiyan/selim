@@ -4,8 +4,8 @@ namespace Selim;
 use \Console_Table;
 
 class ConsoleOutputTable extends Output implements IOutput{
-    private static function getCellFromPlaceholder($placeholder, $sspage = null) {
-        switch ($placeholder) {
+    private static function getCellFromPlaceholder($placeholder, SilverstripePage $sspage = null){
+        switch ($placeholder){
             case '%s':
                 return $sspage ? $sspage->getName() : "Site";
             case '%v':
@@ -27,12 +27,12 @@ class ConsoleOutputTable extends Output implements IOutput{
         }
     }
 
-    private static function getRowFromColumns($columns, SilverstripePage $sspage = null) {
+    private static function getRowFromColumns($columns, SilverstripePage $sspage = null){
         $matches = array();
         preg_match_all("/(?<pl>%s|%v|%da|%el|%et|%m|%cfgp|%cfgy)/",$columns,$matches);
         $row = array();
 
-        foreach($matches["pl"] as $m) {
+        foreach($matches["pl"] as $m){
             $c = self::getCellFromPlaceholder($m,$sspage);
             if ($c) {
                 array_push($row, $c);
@@ -41,16 +41,16 @@ class ConsoleOutputTable extends Output implements IOutput{
         return $row;
     }
 
-    private static function getHeadFromColumns($columns) {
+    private static function getHeadFromColumns($columns){
         return self::getRowFromColumns($columns);
     }
 
-    public function write($columns = "%s%v%da%el%et%m") {
+    public function write($columns = "%s%v%da%el%et%m"){
         $table = new Console_Table();
 
         $table->setHeaders(self::getHeadFromColumns($columns));
 
-        foreach ($this->pages as $p) {
+        foreach ($this->pages as $p){
             $table->addRow(self::getRowFromColumns($columns,$p));
         }
 

@@ -32,7 +32,10 @@ class SilverstripePage {
         if(!$this->path_configphp){
             throw new Exception("No _config.php found at: $sc->path ($sc->name)");
         }
+        $this->reload();
+    }
 
+    public function reload(){
         $this->readVersion();
         $this->readDefaultAdmin();
         $this->readEmailLogging();
@@ -42,7 +45,7 @@ class SilverstripePage {
 
     private function readVersion(){
         $this->version = 'N/A';
-        if($this->path_ssversion) {
+        if($this->path_ssversion){
             $content = file_get_contents($this->path_ssversion);
             $v = array();
             preg_match_all("/\\d+\\.\\d+\\.\\d+/",$content,$v);
@@ -73,17 +76,17 @@ class SilverstripePage {
             $this->envtype = "N/A";
         }
 
-        if($this->path_configyml ) {
+        if($this->path_configyml){
             $content = file_get_contents($this->path_configyml);
             foreach(preg_split("/^---/m",$content) as $block){
                 try {
                     //Seems like the Yaml parser doesnt like the commas in the first block of the _config.yml
-                    if(preg_match("~'framework/\*','cms/\*'~",$block)) continue;
+                    if(preg_match("~'framework/\\*','cms/\\*'~",$block)) continue;
                     $yml = Yaml::parse($block);
                     if ($yml && array_key_exists("Director",$yml) && array_key_exists("environment_type",$yml["Director"])) {
                         $this->envtype = $yml["Director"]["environment_type"];
                     }
-                }catch(\ParseException $e){
+                }catch(ParseException $e){
                     echo $e->getMessage().PHP_EOL;
                 }
             }
@@ -95,6 +98,7 @@ class SilverstripePage {
         $proj = basename($this->path_project);
 
         if($this->path_root){
+
             foreach(scandir($this->path_root) as $f){
                 $abs = "$this->path_root/$f";
                 if(is_dir($abs) && realpath("$abs/_config.php") && $f !== $proj){
@@ -114,6 +118,13 @@ class SilverstripePage {
         $this->modules = $modules;
     }
 
+    /**
+     * searches for a regex string in PROJECT/_config.php
+     *
+     * @param string $regex
+     *
+     * @return boolean
+     */
     private function matchInConfigPhp($regex){
         if($this->path_configphp) {
             $content = file_get_contents($this->path_configphp);
@@ -125,6 +136,9 @@ class SilverstripePage {
         return null;
     }
 
+    /**
+     * @return boolean
+     */
     public function hasModule($regex){
         foreach($this->modules as $m){
             if(preg_match($regex,$m) === 1){
@@ -144,19 +158,19 @@ class SilverstripePage {
     /**
      * @return string
      */
-    function getVersion() {
+    function getVersion(){
         return $this->version;
     }
 
     /**
-     * @return bool which indicates if a DefaultAdmin is specified
+     * @return boolean indicates if a DefaultAdmin is specified
      */
     function hasDefaultAdmin(){
         return $this->defadmin;
     }
 
     /**
-     * @return bool which indicates if EmailLogging is activated
+     * @return boolean indicates if EmailLogging is activated
      */
     function hasEmailLogging(){
         return $this->maillog;
@@ -184,7 +198,7 @@ class SilverstripePage {
         return $this->path_configyml;
     }
 
-    public function getRootPath() {
+    public function getRootPath(){
         return $this->path_root;
     }
 }

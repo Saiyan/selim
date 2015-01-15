@@ -3,9 +3,9 @@
 namespace Selim;
 
 class ConsoleOutput extends Output implements IOutput{
-    public function write($format='') {
-        foreach ($this->pages as $sspage) {
-            if($sspage instanceof SilverstripePage) {
+    public function write($format=''){
+        foreach ($this->pages as $sspage){
+            if($sspage instanceof SilverstripePage){
                 echo self::formatSSpage($sspage,$format);
             }
         }
