@@ -9,9 +9,13 @@ class SecurityChecker {
         $this->sspage = $sspage;
     }
 
-    function findVulnerabilities(){
-        $scv = SelimConfig::getInstance()->getVulnarabilityDb();
+    function findVulnerabilities($version){
         $version = $this->sspage->getVersion();
+        return self::findVulnerabilitiesForVersion($version);
+    }
+
+    public static function findVulnerabilitiesForVersion($version){
+        $scv = SelimConfig::getInstance()->getVulnarabilityDb();
         $vulnerabilities = array();
         foreach($scv as $vuln){
             //Check if this version is affected by any vulnerabilities
