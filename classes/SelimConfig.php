@@ -4,8 +4,10 @@ namespace Selim;
 
 class SelimConfig {
     private $sites = array();
+    private $vulnerabilities = array();
     private static $uniqueInstance = null;
     public static $path_config = "config.json";
+    public static $path_vulnerabilities = "json/vulnerabilities.json";
 
     public static function getInstance()
     {
@@ -32,6 +34,7 @@ class SelimConfig {
             array_push($sites,new SiteConfig($s["name"],$s["path"]));
         }
         $this->sites = $sites;
+        $this->vulnerabilities = json_decode(file_get_contents(self::$path_vulnerabilities),true);
     }
 
     public function write(){
@@ -73,5 +76,12 @@ class SelimConfig {
                 break;
             }
         }
+    }
+
+    /**
+     * @return array with all Vulnerabilities from json/vulnerabilities.json
+     */
+    public function getVulnarabilityDb(){
+        return $this->vulnerabilities;
     }
 }
