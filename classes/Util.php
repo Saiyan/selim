@@ -51,4 +51,34 @@ class Util {
         }
         return $arr;
     }
+
+    /**
+     * @param $version "1.1.1" "2.1.4" "2.0"
+     * @return array [1,1,1] [2,1,4] [2,0,0]
+     */
+    public static function VersionStringsToArray($version){
+        $arr = array();
+        $single = explode(".", $version);
+
+        for($i=0;$i<3;$i++) {
+            if(!isset($single[$i])) {
+                $x = 0;
+            }else{
+                $x = intval($single[$i]);
+            }
+            array_push($arr, $x ? $x : 0);
+        }
+        return $arr;
+    }
+
+    public static function VersionStringsGreaterThenOrEqual($version1,$version2){
+        $v1 = Util::VersionStringsToArray($version1);
+        $v2 = Util::VersionStringsToArray($version2);
+        for($i=0; $i<3;$i++){
+            if($v1[$i] < $v2[$i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

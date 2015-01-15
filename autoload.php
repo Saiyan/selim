@@ -12,6 +12,7 @@ class AutoLoader {
         require_once 'classes/SiteConfig.php';
         require_once 'classes/Util.php';
         require_once 'classes/SelimConfig.php';
+        require_once 'classes/SecurityChecker.php';
     }
 
 }
