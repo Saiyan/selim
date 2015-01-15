@@ -30,7 +30,7 @@ class SilverstripePage {
             : realpath($this->path_project .'/../sapphire/silverstripe_version');
 
         if(!$this->path_configphp){
-            throw new Exception("No _config.php found at:  $sc->path");
+            throw new Exception("No _config.php found at: $sc->path ($sc->name)");
         }
 
         $this->readVersion();
