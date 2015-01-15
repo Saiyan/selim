@@ -1,6 +1,6 @@
 <?php
 
-class SilverstripeCheckerTest extends PHPUnit_Framework_TestCase {
+class SecurityCheckerTest extends PHPUnit_Framework_TestCase {
     public function test249()
     {
         $version = "2.4.9";
