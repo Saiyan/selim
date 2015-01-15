@@ -40,6 +40,12 @@ class SelimConfig {
         )));
     }
 
+    public function getSite($name){
+        foreach($this->sites as $s){
+            if($s->name === $name) return $s;
+        }
+    }
+
     public function getSites(){
         return $this->sites;
     }
