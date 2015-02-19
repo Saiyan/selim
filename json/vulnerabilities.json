@@ -1,5 +1,47 @@
 [
   {
+    "title": "SS-2015-007: XSS In FormAction",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-007/",
+    "severity": "Moderate",
+    "affected": ["3.1"],
+    "fixed": ["3.1.10"]
+  },
+  {
+    "title": "SS-2015-006: XSS In GridField print",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-006/",
+    "severity": "Moderate",
+    "affected": ["3.1"],
+    "fixed": ["3.1.10"]
+  },
+  {
+    "title": "SS-2015-005: VirtualPage XSS",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-004/",
+    "severity": "Moderate",
+    "affected": ["3.1"],
+    "fixed": ["3.1.10"]
+  },
+  {
+    "title": "SS-2015-004: TreeDropdownField and TreeMultiSelectField XSS",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-004/",
+    "severity": "Moderate",
+    "affected": ["3.1"],
+    "fixed": ["3.1.10"]
+  },
+  {
+    "title": "SS-2015-003: History XSS Vulnerability",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-003/",
+    "severity": "Moderate",
+    "affected": ["3.1"],
+    "fixed": ["3.1.10"]
+  },
+  {
+    "title": "SS-2015-001: Debug information exposed",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-001/",
+    "severity": "Low",
+    "affected": ["3.1.9"],
+    "fixed": ["3.1.10"]
+  },
+  {
   "title": "SS-2014-018: Open file permissions vulnerability",
   "url": "http://www.silverstripe.org/software/download/security-releases/ss-2014-018-open-file-permissions/",
   "severity": "Low",
