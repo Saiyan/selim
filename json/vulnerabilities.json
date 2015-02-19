@@ -38,7 +38,7 @@
     "title": "SS-2015-001: Debug information exposed",
     "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-001/",
     "severity": "Low",
-    "affected": ["3.1.9"],
+    "affected": ["3.1"],
     "fixed": ["3.1.10"]
   },
   {
