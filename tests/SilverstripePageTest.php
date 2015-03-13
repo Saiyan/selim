@@ -32,4 +32,13 @@ class SilverstripePageTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'),$sspage->getConfigYmlPath());
         $this->assertFalse($sspage->hasModule("/proj/"));
     }
+
+    public function testPage3(){
+        $projectpath = "/pages/page3/mysite";
+
+        $config = new \Selim\SiteConfig("page3",realpath(__DIR__.$projectpath));
+        $sspage = new SilverstripePage($config);
+
+        $this->assertEquals('3.1.10', $sspage->getVersion());
+    }
 }

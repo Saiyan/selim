@@ -28,6 +28,7 @@ class SilverstripePage {
         $this->path_ssversion = realpath($this->path_project. '/../framework/')
             ? realpath($this->path_project . '/../framework/silverstripe_version')
             : realpath($this->path_project .'/../sapphire/silverstripe_version');
+        $this->path_composer = realpath($this->path_root.'/composer.lock');
 
         if(!$this->path_configphp){
             throw new Exception("No _config.php found at: $sc->path ($sc->name)");
@@ -43,17 +44,33 @@ class SilverstripePage {
         $this->readModules();
     }
 
-    private function readVersion(){
-        $this->version = 'N/A';
-        if($this->path_ssversion){
-            $content = file_get_contents($this->path_ssversion);
+    private function readVersion() {
+        $this->version = null;
+        if ($this->path_ssversion) {
+            $content_ssv = file_get_contents($this->path_ssversion);
             $v = array();
-            preg_match_all("/\\d+\\.\\d+\\.\\d+/",$content,$v);
+            preg_match_all("/\\d+\\.\\d+\\.\\d+/", $content_ssv, $v);
 
             if ($v && $v[0] && $v[0][0]) {
                 $this->version = $v[0][0];
-            }else{
-                $this->version = realpath($this->path_root.'/sapphire') ? "2" : "3";
+            }
+        }
+
+        if ($this->version == null) {
+            if ($this->path_composer) {
+                $content_c = file_get_contents($this->path_composer);
+                $json = json_decode($content_c);
+                if($json->packages){
+                    foreach($json->packages as $package){
+                        if($package->name && $package->name == "silverstripe/cms") {
+                            if(is_string($package->version)){
+                                $this->version = $package->version;
+                            }
+                        }
+                    }
+                }
+            } else {
+                $this->version = realpath($this->path_root . '/sapphire') ? "2" : "3";
             }
         }
     }
