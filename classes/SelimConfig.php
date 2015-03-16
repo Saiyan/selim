@@ -44,7 +44,7 @@ class SelimConfig {
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return SiteConfig
      */
     public function getSite($name){
@@ -57,6 +57,12 @@ class SelimConfig {
         return $this->sites;
     }
 
+    /**
+     * checks if a site with specific name already exists in this config
+     *
+     * @param string $name
+     * @return boolean
+     */
     public function siteExists($name){
         $exists = false;
         foreach ($this->sites as $s){
@@ -68,6 +74,14 @@ class SelimConfig {
         return $exists;
     }
 
+    /**
+     * Adds the path of a Silverstripe project directory (e.g. mysite) to this config
+     *
+     * @param string $name
+     * @param string $path
+     *
+     * @return boolean
+     */
     public function addSite($name, $path){
         array_push($this->sites, new SiteConfig($name,$path));
     }
@@ -83,7 +97,7 @@ class SelimConfig {
     }
 
     /**
-     * @return array with all Vulnerabilities from json/vulnerabilities.json
+     * @return array all Vulnerabilities from json/vulnerabilities.json
      */
     public function getVulnarabilityDb(){
         return $this->vulnerabilities;

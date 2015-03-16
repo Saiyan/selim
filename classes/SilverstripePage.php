@@ -12,6 +12,7 @@ class SilverstripePage {
     private $path_configyml;
     private $path_root;
     private $path_ssversion;
+    private $path_composer;
     private $name;
     private $version;
     private $defadmin;
@@ -21,19 +22,34 @@ class SilverstripePage {
 
     function __construct(SiteConfig $sc){
         $this->name = $sc->name;
-        $this->path_project = realpath($sc->path);
-        $this->path_configphp = realpath($this->path_project.'/_config.php');
-        $this->path_configyml =  realpath($this->path_project.'/_config/config.yml');
-        $this->path_root = realpath($this->path_project.'/..');
-        $this->path_ssversion = realpath($this->path_project. '/../framework/')
-            ? realpath($this->path_project . '/../framework/silverstripe_version')
-            : realpath($this->path_project .'/../sapphire/silverstripe_version');
-        $this->path_composer = realpath($this->path_root.'/composer.lock');
 
-        if(!$this->path_configphp){
-            throw new Exception("No _config.php found at: $sc->path ($sc->name)");
+        if($this->setupPaths($sc->path)){
+
+            if(!$this->path_configphp){
+                throw new Exception("No _config.php found at: $sc->path ($sc->name)");
+            }
         }
+
         $this->reload();
+    }
+
+
+    /**
+     * gets the path of all required files and folders
+     *
+     * @param string $path
+     *
+     * @return boolean
+     */
+    function setupPaths($path){
+        $this->path_project = realpath($path);
+        $this->path_configphp = realpath($this->path_project . '/_config.php');
+        $this->path_configyml = realpath($this->path_project . '/_config/config.yml');
+        $this->path_root = realpath($this->path_project . '/..');
+        $this->path_ssversion = realpath($this->path_project . '/../framework/')
+            ? realpath($this->path_project . '/../framework/silverstripe_version')
+            : realpath($this->path_project . '/../sapphire/silverstripe_version');
+        $this->path_composer = realpath($this->path_root . '/composer.lock');
     }
 
     public function reload(){
