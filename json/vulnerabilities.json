@@ -1,5 +1,12 @@
 [
   {
+    "title": "SS-2015-008: SiteTree Creation Permission Vulnerability",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-008-sitetree-creation-permission-vulnerability/",
+    "severity": "Important",
+    "affected": ["3.1","3.0.11"],
+    "fixed": ["3.1.12"]
+  },
+  {
     "title": "SS-2015-007: XSS In FormAction",
     "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-007/",
     "severity": "Moderate",
