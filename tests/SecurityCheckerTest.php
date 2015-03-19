@@ -7,7 +7,7 @@ class SecurityCheckerTest extends PHPUnit_Framework_TestCase {
         $vulnerabilities = \Selim\SecurityChecker::findVulnerabilitiesForVersion($version);
         $expected = array("SS-2014-012","SS-2013-005","SS-2013-004","SS-2013-003","SS-2013-002","SS-2013-001","`\$allowed_actions` overrides");
 
-        $this->assertCount(7,$vulnerabilities);
+        $this->assertCount(count($expected),$vulnerabilities);
         $this->checkVulnerabilityTitlesContainStrings($vulnerabilities,$expected);
     }
 
@@ -15,9 +15,9 @@ class SecurityCheckerTest extends PHPUnit_Framework_TestCase {
     {
         $version = "3.1.5";
         $vulnerabilities = \Selim\SecurityChecker::findVulnerabilitiesForVersion($version);
-        $expected = array("SS-2014-018","SS-2014-016","SS-2014-014","SS-2014-012","SS-2015-007","SS-2015-006","SS-2015-005","SS-2015-004","SS-2015-003","SS-2015-001");
+        $expected = array("SS-2014-018","SS-2014-016","SS-2014-014","SS-2014-012","SS-2015-007","SS-2015-006","SS-2015-005","SS-2015-004","SS-2015-003","SS-2015-001","SS-2015-008");
 
-        $this->assertCount(10,$vulnerabilities);
+        $this->assertCount(count($expected),$vulnerabilities);
         $this->checkVulnerabilityTitlesContainStrings($vulnerabilities,$expected);
     }
 
