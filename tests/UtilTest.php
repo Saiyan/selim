@@ -72,4 +72,18 @@ class UtilTests extends PHPUnit_Framework_TestCase {
         $si = Util::findInArrayWithRegex($arr, $filter_positivelookahead);
         $this->assertEquals($arr[2], $si);
     }
+
+    function testForceStringMinLength(){
+        $str1 = "one";
+        Util::forceStringMinLength($str,10);
+        $this->assertGreaterThanOrEqual(10,strlen($str));
+
+        $str2 = "two";
+        Util::forceStringMinLength($str,100);
+        $this->assertGreaterThanOrEqual(100,strlen($str));
+
+        $str3 = "three";
+        Util::forceStringMinLength($str,5);
+        $this->assertGreaterThanOrEqual(5,strlen($str));
+    }
 }

@@ -81,4 +81,17 @@ class Util {
         }
         return true;
     }
+
+
+    /**
+     * puts blanks at the end of a string until it reaches the minimum length
+     *
+     * @param string $str
+     * @param int $min
+     */
+    public static function forceStringMinLength(&$str,$min) {
+        while(strlen($str) < $min){
+            $str.=" ";
+        }
+    }
 }
