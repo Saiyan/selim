@@ -21,6 +21,6 @@
   ],
   "git-version": "@package_version@",
   "main": "selim.php",
-  "output": "dist/selim.phar",
+  "output": "selim-cli.phar",
   "stub": true
 }
