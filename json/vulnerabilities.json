@@ -1,5 +1,33 @@
 [
   {
+    "title": "SS-2014-017: XML Quadratic Blowup Attack",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2014-017-xml-quadratic-blowup-attack/",
+    "severity": "Low",
+    "affected": ["3.1"],
+    "fixed": ["3.1.12"]
+  },
+  {
+    "title": "SS-2014-015: IE requests not properly behaving with rewritehashlinks",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2014-015-ie-requests-not-properly-behaving-with-rewritehashlinks/",
+    "severity": "Moderate ",
+    "affected": ["3.1"],
+    "fixed": ["3.1.12"]
+  },
+  {
+    "title": "SS-2015-010: XSS in Director::force_redirect()",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-010-xss-in-directorforce-redirect/",
+    "severity": "Low ",
+    "affected": ["3.1"],
+    "fixed": ["3.1.12"]
+  },
+  {
+    "title": "SS-2015-009: XSS In rewritten hash links",
+    "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-009-xss-in-rewritten-hash-links/",
+    "severity": "Important",
+    "affected": ["3.1"],
+    "fixed": ["3.1.12"]
+  },
+  {
     "title": "SS-2015-008: SiteTree Creation Permission Vulnerability",
     "url": "http://www.silverstripe.org/software/download/security-releases/ss-2015-008-sitetree-creation-permission-vulnerability/",
     "severity": "Important",
