@@ -22,5 +22,4 @@ if (isset($argv[1]) && $argv[1] == "security" && isset($argv[2])) {
 
 $selimCli->start($argv);
 
-echo PHP_EOL;
 exit(0);

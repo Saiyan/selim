@@ -49,7 +49,7 @@ class SelimCLI
             echo "Security-test for $name:".PHP_EOL;
             $site = $config->getSite($name);
             $sc = new \Selim\SecurityChecker(new \Selim\SilverstripePage($site));
-            $vulns = $sc->findVulnerabilities();
+            $vulns = $sc->findVulnerabilities(true);
             foreach ($vulns as $vul) {
                 $severity = $vul["severity"] ? $vul["severity"] : "Warning";
                 Util::forceStringMinLength($severity, 9);

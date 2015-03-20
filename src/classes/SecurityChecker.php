@@ -11,10 +11,10 @@ class SecurityChecker
         $this->sspage = $sspage;
     }
 
-    public function findVulnerabilities()
+    public function findVulnerabilities($is_cli = false)
     {
         $version = $this->sspage->getVersion();
-        if (Util::VersionStringsGreaterThenOrEqual($version, "3.0")) {
+        if ($is_cli && !Util::VersionStringsGreaterThenOrEqual($version, "3.0")) {
             echo "IMPORTANT: It seems as if you are running Silverstripe 2. This Version of Silverstripe will only be supported until March 31st 2015".PHP_EOL;
         }
 
