@@ -8,7 +8,7 @@ class SelimConfig
     private $vulnerabilities = array();
     private static $uniqueInstance = null;
     public static $path_config = "config.json";
-    public static $path_vulnerabilities = "json/vulnerabilities.json";
+    public static $path_vulnerabilities = "src/json/vulnerabilities.json";
 
     public static function getInstance()
     {
