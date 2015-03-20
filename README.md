@@ -98,6 +98,6 @@ Let Box do all the work.(http://box-project.org/)
 ```
 git clone https://github.com/Saiyan/selim.git selim-build
 cd selim-build
-php composer.phar install
+composer install
 vendor/kherge/box/bin/box build -v
 ```
