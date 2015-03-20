@@ -2,18 +2,21 @@
 
 namespace Selim;
 
-class ConsoleOutput extends Output implements IOutput{
-    public function write($format=''){
-        foreach ($this->pages as $sspage){
-            if($sspage instanceof SilverstripePage){
-                echo self::formatSSpage($sspage,$format);
+class ConsoleOutput extends Output implements IOutput
+{
+    public function write($format = '')
+    {
+        foreach ($this->pages as $sspage) {
+            if ($sspage instanceof SilverstripePage) {
+                echo self::formatSSpage($sspage, $format);
             }
         }
     }
 
     private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n%n";
 
-    private static function formatSSpage(SilverstripePage $sspage,$format = ''){
+    private static function formatSSpage(SilverstripePage $sspage, $format = '')
+    {
         $format = $format ? $format : self::$format_default;
         $placeholders = array(
             "%n" => PHP_EOL,
@@ -28,9 +31,10 @@ class ConsoleOutput extends Output implements IOutput{
             "%root" => $sspage->getRootPath(),
         );
 
-        foreach($placeholders as $p => $v){
-            $format = str_replace($p,$v,$format);
+        foreach ($placeholders as $p => $v) {
+            $format = str_replace($p, $v, $format);
         }
+
         return $format;
     }
 }

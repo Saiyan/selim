@@ -2,6 +2,7 @@
 
 namespace Selim;
 
-interface IOutput {
+interface IOutput
+{
     public function write();
-} 
+}

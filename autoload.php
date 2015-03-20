@@ -1,7 +1,9 @@
 <?php
 
-class AutoLoader {
-    public static function loadClass() {
+class AutoLoader
+{
+    public static function loadClass()
+    {
         require_once 'vendor/autoload.php';
         require_once 'vendor/pear/console_table/Table.php';
         require_once 'classes/Output.php';
@@ -15,5 +17,4 @@ class AutoLoader {
         require_once 'classes/SelimCLI.php';
         require_once 'classes/SecurityChecker.php';
     }
-
 }
