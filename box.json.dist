@@ -20,7 +20,7 @@
     }
   ],
   "git-version": "@package_version@",
-  "main": "selim.php",
-  "output": "selim-cli.phar",
+  "main": "bin/selim.php",
+  "output": "bin/selim-cli.phar",
   "stub": true
 }

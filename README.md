@@ -24,14 +24,14 @@ composer install
 
 ## Usage
 ```
-php selim.php [COMMAND] [OPTIONS]
+php bin/selim.php [COMMAND] [OPTIONS]
 ```
 
 If selim is started without a command it will print any configured Silverstripe-CMS instances found in the config.json file.
 When you start selim for the first time there will be no config.json so you need to add a new Silverstripe site with:
 
 ```
-php selim.php add <NAME> </PATH/TO/MYSITE/>
+php bin/selim.php add <NAME> </PATH/TO/MYSITE/>
 ```
 
 The NAME for your site is just a String so you can identify your site later on whereas the PATH needs to be the path to the "project" folder of your silverstripe instance.
@@ -40,7 +40,7 @@ If you dont change it after installing Silverstripe it should be the "mysite" fo
 If you want to remove a Page from your config then just use
 
 ```
-php selim.php remove <NAME>
+php bin/selim.php remove <NAME>
 ```
 
 ## Options

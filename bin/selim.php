@@ -1,6 +1,6 @@
 <?php
 
-require_once 'autoload.php';
+require_once '../autoload.php';
 spl_autoload_register(array('AutoLoader', 'loadClass'));
 
 $selimCli = new \Selim\SelimCLI();
