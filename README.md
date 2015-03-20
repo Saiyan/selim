@@ -19,7 +19,7 @@ CLI Tool for scanning Silverstripe-CMS Installations
 ```
 git clone https://github.com/Saiyan/selim.git
 cd selim
-php composer.phar install
+composer install
 ```
 
 ## Usage
@@ -87,4 +87,17 @@ Some Examples
 
 //list only sites which have only characters in their name  
 --filter-name=\w+
+```
+
+
+##Build
+Building a phar for selim is easy.
+Get the Repository.
+Use composer to install all dependencies.
+Let Box do all the work.(http://box-project.org/)
+```
+git clone https://github.com/Saiyan/selim.git selim-build
+cd selim-build
+php composer.phar install
+vendor/kherge/box/bin/box build -v
 ```
