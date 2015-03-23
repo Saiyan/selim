@@ -89,6 +89,13 @@ Some Examples
 --filter-name=\w+
 ```
 
+###--config=
+
+Naturally selim uses/generates the config.json file in its own directory. If you want to use another config-file you can use the --config parameter 
+
+```
+--config=/home/user/temp/my-selim-config-file
+```
 
 ##Build
 Building a phar for selim is easy.

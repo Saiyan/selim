@@ -7,7 +7,7 @@ class SelimConfig
     private $sites = array();
     private $vulnerabilities = array();
     private static $uniqueInstance = null;
-    public static $path_config = "config.json";
+    private $path_config = "config.json";
     public static $path_vulnerabilities = "/../json/vulnerabilities.json";
 
     public static function getInstance()
@@ -19,22 +19,27 @@ class SelimConfig
         return self::$uniqueInstance;
     }
 
+    private function loadVulnerabilites() {
+        $this->vulnerabilities = json_decode(file_get_contents(realpath(__DIR__.self::$path_vulnerabilities)), true);
+    }
+
     final private function __clone()
     {
     }
 
     protected function __construct()
     {
-        if (!file_exists(self::$path_config)) {
-            self::write();
+        if (file_exists($this->path_config)) {
+            self::load();
         }
-        self::load();
+        self::loadVulnerabilites();
     }
 
     public function load()
     {
         $sites = array();
-        $json = json_decode(file_get_contents(self::$path_config), true);
+        $json = json_decode(file_get_contents($this->path_config), true);
+
         if (!isset($json["sites"])) {
             return;
         }
@@ -42,12 +47,11 @@ class SelimConfig
             array_push($sites, new SiteConfig($s["name"], $s["path"]));
         }
         $this->sites = $sites;
-        $this->vulnerabilities = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
     }
 
     public function write()
     {
-        file_put_contents(self::$path_config, json_encode(array(
+        file_put_contents($this->$path_config, json_encode(array(
             "sites" => $this->sites,
         )));
     }
@@ -122,5 +126,24 @@ class SelimConfig
     public function getVulnarabilityDb()
     {
         return $this->vulnerabilities;
+    }
+
+    public function setPath($config_path = "") {
+        $dir = dirname($config_path);
+        if(file_exists($dir)) {
+            if(!file_exists($config_path)){
+                echo "The file $config_path doesn't exist. Do you want to create it? yes/[no]";
+                $line = fgets(STDIN);
+                if(preg_match("/^y|yes/", $line)) {
+                    file_put_contents($config_path, '{"sites":{}}');
+                }else{
+                    Util::reportError("Aborting...");
+                }
+            }
+            $this->path_config = $config_path;
+            $this->load();
+        }else{
+            Util::reportError("The directory \"$dir\" doesnt exist.");
+        }
     }
 }
