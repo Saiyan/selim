@@ -35,7 +35,7 @@ class SelimCLI
             $config->write();
             echo "removed: '$name'".PHP_EOL;
         } else {
-            echo "Site with name '$name' doesn't exists!".PHP_EOL;
+            Util::reportError("Site with name '$name' doesn't exists!");
         }
     }
 
@@ -56,14 +56,22 @@ class SelimCLI
                 echo "$severity ".$vul["title"].PHP_EOL;
             }
         } else {
-            echo "Site with name '$name' doesn't exists!";
+            Util::reportError("Site with name '$name' doesn't exists!");
         }
     }
 
     public function start($arguments)
     {
         $config = SelimConfig::getInstance();
+
+        $cfg_path = Util::findInArrayWithRegex($arguments, "/^--config=/");
+        if ($cfg_path) {
+            $cfg_path = preg_replace("/^--config=/", "", $cfg_path);
+            $config->setPath($cfg_path);
+        }
+
         $sites = $config->getSites();
+
         $filter_name = Util::findInArrayWithRegex($arguments, "/^--filter-name=/");
         if ($filter_name) {
             $sites = Util::filterSitesByName($sites, preg_replace("/^--filter-name=/", "", $filter_name));
