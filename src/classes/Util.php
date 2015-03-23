@@ -114,4 +114,12 @@ class Util
             $str .= " ";
         }
     }
+
+    public static function reportError($string,$die = true) {
+        if($die) {
+            exit($string);
+        }else{
+            echo($string);
+        }
+    }
 }
