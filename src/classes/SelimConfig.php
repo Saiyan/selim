@@ -8,7 +8,7 @@ class SelimConfig
     private $vulnerabilities = array();
     private static $uniqueInstance = null;
     private $path_config = "config.json";
-    private static $path_vulnerabilities = "../json/vulnerabilities.json";
+    public static $path_vulnerabilities = "/../json/vulnerabilities.json";
 
     public static function getInstance()
     {
@@ -17,6 +17,10 @@ class SelimConfig
         }
 
         return self::$uniqueInstance;
+    }
+
+    private function loadVulnerabilites() {
+        $this->vulnerabilities = json_decode(file_get_contents(realpath(__DIR__.self::$path_vulnerabilities)), true);
     }
 
     final private function __clone()
@@ -28,6 +32,7 @@ class SelimConfig
         if (file_exists($this->path_config)) {
             self::load();
         }
+        self::loadVulnerabilites();
     }
 
     public function load()
@@ -42,7 +47,6 @@ class SelimConfig
             array_push($sites, new SiteConfig($s["name"], $s["path"]));
         }
         $this->sites = $sites;
-        $this->vulnerabilities = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
     }
 
     public function write()
