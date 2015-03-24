@@ -14,8 +14,7 @@
         "Tests"
       ],
       "in": [
-        "vendor/pear",
-        "vendor/symfony"
+        "vendor"
       ]
     }
   ],

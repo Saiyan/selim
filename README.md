@@ -111,6 +111,6 @@ Let Box do all the work.(http://box-project.org/)
 ```
 git clone https://github.com/Saiyan/selim.git selim-build
 cd selim-build
-composer install
-vendor/kherge/box/bin/box build -v
+composer global require "kherge/box:~2.0"
+~/.composer/vendor/kherge/box/bin/box build -v
 ```
