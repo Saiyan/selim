@@ -4,9 +4,15 @@ namespace Selim;
 
 class SelimCLI
 {
-    public function __construct()
+    public function __construct($arguments)
     {
+        $this->arguments= $arguments;
+        $this->config =  SelimConfig::getInstance();
+        $this->loadConfig();
     }
+
+    private $arguments;
+    private $config;
 
     /**
      * @param string $name
@@ -14,10 +20,9 @@ class SelimCLI
      */
     public function addSite($name, $path)
     {
-        $config = SelimConfig::getInstance();
-        if (!$config->siteExists($name)) {
-            $config->addSite($name, $path);
-            $config->write();
+        if (!$this->config->siteExists($name)) {
+            $this->config->addSite($name, $path);
+            $this->config->write();
             echo "added: '$name'".PHP_EOL;
         } else {
             echo "Site with name '$name' already exists!".PHP_EOL;
@@ -29,10 +34,9 @@ class SelimCLI
      */
     public function removeSite($name)
     {
-        $config = SelimConfig::getInstance();
-        if ($config->siteExists($name)) {
-            $config->removeSite($name);
-            $config->write();
+        if ($this->config->siteExists($name)) {
+            $this->config->removeSite($name);
+            $this->config->write();
             echo "removed: '$name'".PHP_EOL;
         } else {
             Util::reportError("Site with name '$name' doesn't exists!");
@@ -44,10 +48,9 @@ class SelimCLI
      */
     public function securityCheck($name)
     {
-        $config = SelimConfig::getInstance();
-        if ($config->siteExists($name)) {
+        if ($this->config->siteExists($name)) {
             echo "Security-test for $name:".PHP_EOL;
-            $site = $config->getSite($name);
+            $site = $this->config->getSite($name);
             $sc = new \Selim\SecurityChecker(new \Selim\SilverstripePage($site));
             $vulns = $sc->findVulnerabilities(true);
             foreach ($vulns as $vul) {
@@ -60,21 +63,12 @@ class SelimCLI
         }
     }
 
-    public function start($arguments)
-    {
-        $config = SelimConfig::getInstance();
+    public function start(){
+        $sites = $this->config->getSites();
 
-        $cfg_path = Util::findInArrayWithRegex($arguments, "/^--config=/");
-        if ($cfg_path) {
-            $cfg_path = preg_replace("/^--config=/", "", $cfg_path);
-            $config->setPath($cfg_path);
-        }
-
-        $sites = $config->getSites();
-
-        $filter_name = Util::findInArrayWithRegex($arguments, "/^--filter-name=/");
-        if ($filter_name) {
-            $sites = Util::filterSitesByName($sites, preg_replace("/^--filter-name=/", "", $filter_name));
+        $filter_name = $this->getArgumentValue("--filter-name=");
+        if (strlen($filter_name)) {
+            $sites = Util::filterSitesByName($sites, $filter_name);
         }
 
         $sspages = array();
@@ -84,27 +78,39 @@ class SelimCLI
             }
         }
 
-        $filter_module = Util::findInArrayWithRegex($arguments, "/^--filter-module=/");
-        if ($filter_module) {
-            $sspages = Util::filterPagesByModules($sspages, preg_replace("/^--filter-module=/", "", $filter_module));
+        $filter_module = $this->getArgumentValue("--filter-module=");
+        if (strlen($filter_module)) {
+            $sspages = Util::filterPagesByModules($sspages, $filter_module);
         }
 
-        $format = Util::findInArrayWithRegex($arguments, "/^--format=/");
-        if ($format) {
-            $format = preg_replace("/^--format=/", "", $format);
-        } else {
-            $format = '';
-        }
-
-        if (in_array("--table", $arguments)) {
+        if (in_array("--table", $this->arguments)) {
             $output = new ConsoleOutputTable($sspages);
         } else {
             $output = new ConsoleOutput($sspages);
         }
+
+        $format = $this->getArgumentValue("--format=");
         if (strlen($format)) {
             $output->write($format);
         } else {
             $output->write();
+        }
+    }
+
+    private function getArgumentValue($argname){
+
+        $argval = Util::findInArrayWithRegex($this->arguments, "/^$argname/");
+        if ($argval) {
+            $argval = preg_replace("/^--config=/", "", $argval);
+            return $argval;
+        }
+        return "";
+    }
+
+    private function loadConfig() {
+        $cfg_path = $this->getArgumentValue("--config=");
+        if ($cfg_path) {
+            $this->config->setPath($cfg_path);
         }
     }
 }

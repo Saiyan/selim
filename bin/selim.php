@@ -3,7 +3,7 @@
 require_once '../autoload.php';
 spl_autoload_register(array('AutoLoader', 'loadClass'));
 
-$selimCli = new \Selim\SelimCLI();
+$selimCli = new \Selim\SelimCLI($argv);
 
 if (isset($argv[1]) && $argv[1] === "add" && isset($argv[2]) && $argv[3]) {
     $selimCli->addSite($argv[2], $argv[3]);
