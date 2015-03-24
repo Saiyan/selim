@@ -7,7 +7,7 @@ class SelimConfig
     private $sites = array();
     private $vulnerabilities = array();
     private static $uniqueInstance = null;
-    private $path_config = "config.json";
+    private $path_config;
     public static $path_vulnerabilities = "/../json/vulnerabilities.json";
 
     public static function getInstance()
@@ -29,6 +29,13 @@ class SelimConfig
 
     protected function __construct()
     {
+        $conf_dir = "{$_SERVER['HOMEDRIVE']}{$_SERVER['HOMEPATH']}/.selim/";
+        if(!file_exists($conf_dir)){
+            mkdir($conf_dir);
+        }
+
+        $this->path_config = $conf_dir."config.json";
+
         if (file_exists($this->path_config)) {
             self::load();
         }
@@ -128,10 +135,10 @@ class SelimConfig
         return $this->vulnerabilities;
     }
 
-    public function setPath($config_path = "") {
+    public function setPath($config_path = "",$is_cli = true) {
         $dir = dirname($config_path);
         if(file_exists($dir)) {
-            if(!file_exists($config_path)){
+            if(!file_exists($config_path) && $is_cli){
                 echo "The file $config_path doesn't exist. Do you want to create it? yes/[no]";
                 $line = fgets(STDIN);
                 if(preg_match("/^y|yes/", $line)) {
