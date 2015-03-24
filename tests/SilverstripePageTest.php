@@ -6,43 +6,35 @@ class SilverstripePageTest extends PHPUnit_Framework_TestCase
 {
     public function testPage1()
     {
-        $projectpath = "/pages/page1/mysite";
+        $tp = TestPage::getPage1();
 
-        $config = new \Selim\SiteConfig("page1", realpath(__DIR__.$projectpath));
-        $sspage = new SilverstripePage($config);
-
-        $this->assertEquals('2.4.3', $sspage->getVersion());
-        $this->assertTrue($sspage->hasDefaultAdmin());
-        $this->assertFalse($sspage->hasEmailLogging());
-        $this->assertEquals('dev', $sspage->getEnvironmentType());
-        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config.php'), $sspage->getConfigPhpPath());
-        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'), $sspage->getConfigYmlPath());
-        $this->assertFalse($sspage->hasModule("/mysite/"));
+        $this->assertEquals('2.4.3', $tp->sspage->getVersion());
+        $this->assertTrue($tp->sspage->hasDefaultAdmin());
+        $this->assertFalse($tp->sspage->hasEmailLogging());
+        $this->assertEquals('dev', $tp->sspage->getEnvironmentType());
+        $this->assertEquals(realpath(__DIR__.'/pages/'.$tp->projectpath.'/_config.php'), $tp->sspage->getConfigPhpPath());
+        $this->assertEquals(realpath(__DIR__.'/pages/'.$tp->projectpath.'/_config/config.yml'), $tp->sspage->getConfigYmlPath());
+        $this->assertFalse($tp->sspage->hasModule("/mysite/"));
+        $this->assertTrue($tp->sspage->hasModule("/module1/"));
     }
 
     public function testPage2()
     {
-        $projectpath = "/pages/page2/proj";
+        $tp = TestPage::getPage2();
 
-        $config = new \Selim\SiteConfig("page2", realpath(__DIR__.$projectpath));
-        $sspage = new SilverstripePage($config);
-
-        $this->assertEquals('3', $sspage->getVersion());
-        $this->assertFalse($sspage->hasDefaultAdmin());
-        $this->assertFalse($sspage->hasEmailLogging());
-        $this->assertEquals('live', $sspage->getEnvironmentType());
-        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config.php'), $sspage->getConfigPhpPath());
-        $this->assertEquals(realpath(__DIR__.$projectpath.'/_config/config.yml'), $sspage->getConfigYmlPath());
-        $this->assertFalse($sspage->hasModule("/proj/"));
+        $this->assertEquals('3', $tp->sspage->getVersion());
+        $this->assertFalse($tp->sspage->hasDefaultAdmin());
+        $this->assertFalse($tp->sspage->hasEmailLogging());
+        $this->assertEquals('live', $tp->sspage->getEnvironmentType());
+        $this->assertEquals(realpath(__DIR__.'/pages/'.$tp->projectpath.'/_config.php'), $tp->sspage->getConfigPhpPath());
+        $this->assertEquals(realpath(__DIR__.'/pages/'.$tp->projectpath.'/_config/config.yml'), $tp->sspage->getConfigYmlPath());
+        $this->assertFalse($tp->sspage->hasModule("/proj/"));
     }
 
     public function testPage3()
     {
-        $projectpath = "/pages/page3/mysite";
+        $tp = TestPage::getPage3();
 
-        $config = new \Selim\SiteConfig("page3", realpath(__DIR__.$projectpath));
-        $sspage = new SilverstripePage($config);
-
-        $this->assertEquals('3.1.10', $sspage->getVersion());
+        $this->assertEquals('3.1.10', $tp->sspage->getVersion());
     }
 }

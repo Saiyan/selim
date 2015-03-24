@@ -89,6 +89,12 @@ Some Examples
 --filter-name=\w+
 ```
 
+###--filter-module=
+```
+//list only sites with userforms module  
+--filter-module=userforms
+```
+
 ###--config=
 
 Naturally selim uses/generates the config.json file in its own directory. If you want to use another config-file you can use the --config parameter 

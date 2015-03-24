@@ -83,4 +83,17 @@ class UtilTests extends PHPUnit_Framework_TestCase
         Util::forceStringMinLength($str, 5);
         $this->assertGreaterThanOrEqual(5, strlen($str));
     }
+
+    public function testFilterPagesByModules(){
+        $pages = array(
+            TestPage::getPage1()->sspage,
+            TestPage::getPage2()->sspage,
+            TestPage::getPage3()->sspage,
+        );
+
+        $filtered = Util::filterPagesByModules($pages,"moduleX");
+
+        $this->assertCount(1,$filtered);
+        $this->assertEquals($filtered[0]->getName(),"page2");
+    }
 }
