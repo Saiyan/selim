@@ -49,8 +49,9 @@ class Util
 
     /**
      * @param array $sspages should contain only objects of class SilverstripePage
-     *
+     * @param string $filterRegex
      * @return array all SilverstripePages that match the regex
+     *
      */
     public static function filterPagesByModules(array $sspages, $filterRegex)
     {
@@ -60,6 +61,20 @@ class Util
                 continue;
             }
             if ($sspage->hasModule("/$filterRegex/")) {
+                array_push($arr, $sspage);
+            }
+        }
+
+        return $arr;
+    }
+
+    public static function filterPagesByVersion($sspages, $filterRegex) {
+        $arr = array();
+        foreach ($sspages as $sspage) {
+            if (!$sspage instanceof SilverstripePage) {
+                continue;
+            }
+            if (preg_match("/$filterRegex/",$sspage->getVersion())) {
                 array_push($arr, $sspage);
             }
         }

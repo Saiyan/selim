@@ -96,4 +96,17 @@ class UtilTests extends PHPUnit_Framework_TestCase
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page2");
     }
+
+    public function testFilterPagesByVersion(){
+        $pages = array(
+            TestPage::getPage1()->sspage,
+            TestPage::getPage2()->sspage,
+            TestPage::getPage3()->sspage,
+        );
+
+        $filtered = Util::filterPagesByVersion($pages,"^2.");
+
+        $this->assertCount(1,$filtered);
+        $this->assertEquals($filtered[0]->getName(),"page1");
+    }
 }

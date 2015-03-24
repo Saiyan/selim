@@ -78,6 +78,11 @@ class SelimCLI
             }
         }
 
+        $filter_version = $this->getArgumentValue("--filter-version=");
+        if (strlen($filter_version)) {
+            $sspages = Util::filterPagesByVersion($sspages, $filter_version);
+        }
+
         $filter_module = $this->getArgumentValue("--filter-module=");
         if (strlen($filter_module)) {
             $sspages = Util::filterPagesByModules($sspages, $filter_module);
