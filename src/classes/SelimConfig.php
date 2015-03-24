@@ -7,7 +7,7 @@ class SelimConfig
     private $sites = array();
     private $vulnerabilities = array();
     private static $uniqueInstance = null;
-    private $path_config = "config.json";
+    private $path_config = "/config.json";
     public static $path_vulnerabilities = "/../json/vulnerabilities.json";
 
     public static function getInstance()
@@ -29,6 +29,7 @@ class SelimConfig
 
     protected function __construct()
     {
+        $this->path_config = SELIM_BIN_DIR.$this->path_config;
         if (file_exists($this->path_config)) {
             self::load();
         }

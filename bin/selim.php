@@ -1,7 +1,9 @@
 <?php
 
-require_once '../src/autoload.php';
+require_once __DIR__.'/../src/autoload.php';
 spl_autoload_register(array('AutoLoader', 'loadClass'));
+
+define("SELIM_BIN_DIR",__DIR__);
 
 $selimCli = new \Selim\SelimCLI($argv);
 
