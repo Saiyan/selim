@@ -29,7 +29,17 @@ class SelimConfig
 
     protected function __construct()
     {
-        $conf_dir = "{$_SERVER['HOMEDRIVE']}{$_SERVER['HOMEPATH']}/.selim/";
+        $selim_foldername = "/.selim/";
+        if(isset($_SERVER['HOME'])){
+            $conf_dir = $_SERVER['HOME'].$selim_foldername;
+            echo $conf_dir;die;
+        }else if(isset($_SERVER['HOMEDRIVE'])){
+            $conf_dir = "{$_SERVER['HOMEDRIVE']}{$_SERVER['HOMEPATH']}{$selim_foldername}";
+        }else{
+            Util::reportError("Can't find Homedir. Aborting...");
+            return;
+        }
+
         if(!file_exists($conf_dir)){
             mkdir($conf_dir);
         }
