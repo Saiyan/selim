@@ -3,8 +3,6 @@
 require_once __DIR__.'/../src/autoload.php';
 spl_autoload_register(array('AutoLoader', 'loadClass'));
 
-define("SELIM_BIN_DIR",__DIR__);
-
 $selimCli = new \Selim\SelimCLI($argv);
 
 if (isset($argv[1]) && $argv[1] === "add" && isset($argv[2]) && $argv[3]) {
