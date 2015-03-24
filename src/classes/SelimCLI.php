@@ -101,7 +101,7 @@ class SelimCLI
 
         $argval = Util::findInArrayWithRegex($this->arguments, "/^$argname/");
         if ($argval) {
-            $argval = preg_replace("/^--config=/", "", $argval);
+            $argval = preg_replace("/^$argname/", "", $argval);
             return $argval;
         }
         return "";
