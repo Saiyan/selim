@@ -32,7 +32,6 @@ class SelimConfig
         $selim_foldername = "/.selim/";
         if(isset($_SERVER['HOME'])){
             $conf_dir = $_SERVER['HOME'].$selim_foldername;
-            echo $conf_dir;die;
         }else if(isset($_SERVER['HOMEDRIVE'])){
             $conf_dir = "{$_SERVER['HOMEDRIVE']}{$_SERVER['HOMEPATH']}{$selim_foldername}";
         }else{
