@@ -67,7 +67,7 @@ class SelimConfig
 
     public function write()
     {
-        file_put_contents($this->$path_config, json_encode(array(
+        file_put_contents($this->path_config, json_encode(array(
             "sites" => $this->sites,
         )));
     }
