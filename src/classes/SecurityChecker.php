@@ -18,6 +18,10 @@ class SecurityChecker
             echo "IMPORTANT: It seems as if you are running Silverstripe 2. This Version of Silverstripe will only be supported until March 31st 2015".PHP_EOL;
         }
 
+        if($this->sspage->hasDefaultAdmin()){
+            echo "IMPORTANT: It seems as if this instance of silverstipe uses Security::setDefaultAdmin()";
+        }
+
         return self::findVulnerabilitiesForVersion($version);
     }
 
