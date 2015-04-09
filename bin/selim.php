@@ -6,6 +6,7 @@ spl_autoload_register(array('AutoLoader', 'loadClass'));
 
 use Selim\Commands\AddSiteCommand;
 use Selim\Commands\DefaultCommand;
+use Selim\Commands\FindSitesCommand;
 use Selim\Commands\RemoveSiteCommand;
 use Selim\Commands\SecuritySiteCommand;
 use Selim\SelimApplication;
@@ -19,6 +20,7 @@ $application->getDefinition()->addOptions([
 
 $application->add(new AddSiteCommand());
 $application->add(new DefaultCommand());
+$application->add(new FindSitesCommand());
 $application->add(new RemoveSiteCommand());
 $application->add(new SecuritySiteCommand());
 

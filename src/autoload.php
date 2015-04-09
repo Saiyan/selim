@@ -14,12 +14,13 @@ class AutoLoader
         require_once __DIR__.'/classes/SiteConfig.php';
         require_once __DIR__.'/classes/Util.php';
         require_once __DIR__.'/classes/SelimConfig.php';
-        require_once __DIR__ . '/classes/Commands/SelimCommand.php';
-        require_once __DIR__ . '/classes/Commands/DefaultCommand.php';
+        require_once __DIR__.'/classes/Commands/SelimCommand.php';
+        require_once __DIR__.'/classes/Commands/DefaultCommand.php';
         require_once __DIR__.'/classes/Commands/AddSiteCommand.php';
         require_once __DIR__.'/classes/Commands/RemoveSiteCommand.php';
         require_once __DIR__.'/classes/Commands/SecurityCommand.php';
         require_once __DIR__.'/classes/SelimApplication.php';
+        require_once __DIR__.'/classes/Commands/FindSitesCommand.php';
         require_once __DIR__.'/classes/SecurityChecker.php';
     }
 }

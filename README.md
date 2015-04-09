@@ -30,14 +30,24 @@ Or
 php bin/selim.php  command [options] [arguments]
 ```
 
-### add
+Before you can start to use selim you have to tell it where your silverstripe folders are.
+For this you can use the two commands "find" and "add". 
 
+### find
+```
+php bin/selim.php find PATH
+```
+This command searches for all possible paths of silverstripe project-folders.
+After that selim will prompt you for every found folder which name you want to assign to each folder.
+
+### add
 ```
 php bin/selim.php add <NAME> </PATH/TO/MYSITE/>
 ```
 
 The NAME for your site is just a String so you can identify your site later on whereas the PATH needs to be the path to the "project" folder of your silverstripe instance.
 If you dont change it after installing Silverstripe it should be the "mysite" folder.
+
 ### rm
 If you want to remove a page "NAME" from your config then just use
 
