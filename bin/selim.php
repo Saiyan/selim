@@ -1,25 +1,20 @@
 <?php
 
 require_once __DIR__.'/../src/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 spl_autoload_register(array('AutoLoader', 'loadClass'));
 
-$selimCli = new \Selim\SelimCLI($argv);
+use Selim\Commands\AddSiteCommand;
+use Selim\Commands\DefaultCommand;
+use Selim\Commands\RemoveSiteCommand;
+use Selim\Commands\SecuritySiteCommand;
+use Symfony\Component\Console\Application;
 
-if (isset($argv[1]) && $argv[1] === "add" && isset($argv[2]) && $argv[3]) {
-    $selimCli->addSite($argv[2], $argv[3]);
-    exit(0);
-}
-
-if (isset($argv[1]) && $argv[1] === "rm" && isset($argv[2])) {
-    $selimCli->removeSite($argv[2]);
-    exit(0);
-}
-
-if (isset($argv[1]) && $argv[1] == "security" && isset($argv[2])) {
-    $selimCli->securityCheck($argv[2]);
-    exit(0);
-}
-
-$selimCli->start($argv);
+$application = new Application();
+$application->add(new AddSiteCommand());
+$application->add(new DefaultCommand());
+$application->add(new RemoveSiteCommand());
+$application->add(new SecuritySiteCommand());
+$application->run();
 
 exit(0);

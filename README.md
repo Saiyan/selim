@@ -3,7 +3,7 @@ selim
 CLI Tool for scanning Silverstripe-CMS Installations
 
 [![Build Status](https://travis-ci.org/Saiyan/selim.svg?branch=master)](https://travis-ci.org/Saiyan/selim)
-[![Code Climate](https://codeclimate.com/repos/548ae469695680418202c0b5/badges/72d27922807d5d2a1476/gpa.svg)](https://codeclimate.com/repos/548ae469695680418202c0b5/feed)
+[![Code Climate](https://codeclimate.com/github/Saiyan/selim/badges/gpa.svg)](https://codeclimate.com/github/Saiyan/selim)
 
 
 
@@ -22,13 +22,15 @@ cd selim
 composer install
 ```
 
-## Usage
+Or 
+
+## Commands
+
 ```
-php bin/selim.php [COMMAND] [OPTIONS]
+php bin/selim.php  command [options] [arguments]
 ```
 
-If selim is started without a command it will print any configured Silverstripe-CMS instances found in the config.json file.
-When you start selim for the first time there will be no config.json so you need to add a new Silverstripe site with:
+### add
 
 ```
 php bin/selim.php add <NAME> </PATH/TO/MYSITE/>
@@ -36,15 +38,30 @@ php bin/selim.php add <NAME> </PATH/TO/MYSITE/>
 
 The NAME for your site is just a String so you can identify your site later on whereas the PATH needs to be the path to the "project" folder of your silverstripe instance.
 If you dont change it after installing Silverstripe it should be the "mysite" folder.
-
-If you want to remove a Page from your config then just use
+### rm
+If you want to remove a page "NAME" from your config then just use
 
 ```
-php bin/selim.php remove <NAME>
+php bin/selim.php rm NAME
 ```
 
-## Options
-###--format=
+### security
+this command reads the Version of your site "NAME" and shows all security vulnerabilities known for this version   
+
+```
+php bin/selim.php security NAME
+``` 
+
+### start
+
+This is the main command to use with selim. "start" lists all sites that you added and their properties.
+
+```
+php bin/selim.php start
+```
+
+#### options
+#####--format=
 
 if you start selim with a parameter which starts with "--format=" the analyzer will print every site in the specified format.  
 the standard-format-string looks something like this (without the line breaks) 
@@ -72,7 +89,16 @@ You can use the following placeholders in your format:
 %root //Root directory of your Silverstripe-CMS
 ```
 
-###--filter-name=
+some examples
+```
+ #List the names of all sites and the path to their _config.php
+php bin/selim.php start --format=%s %cfgp%n
+
+ #List the names of all sites and the their version
+php bin/selim.php start --format=%s %v%n
+```
+
+#####--filter-name=
 
 if you don't want to see all your sites listed you can filter the results shown to you with --filter-name=
 Everything after the parameter name will be interpreted as a Regular Expression and will be tested against the name of the site.
@@ -89,13 +115,14 @@ Some Examples
 --filter-name=\w+
 ```
 
-###--filter-module=
+#####--filter-module=
 ```
 //list only sites with userforms module  
 --filter-module=userforms
 ```
 
-###--config=
+### global options
+#### --config=
 
 Naturally selim uses/generates the config.json file in its own directory. If you want to use another config-file you can use the --config parameter 
 
@@ -113,4 +140,6 @@ git clone https://github.com/Saiyan/selim.git selim-build
 cd selim-build
 composer global require "kherge/box:~2.0"
 ~/.composer/vendor/kherge/box/bin/box build -v
+#Composer under Windows uses the following path 
+#~\AppData\Roaming\Composer\vendor\kherge\box\bin\box
 ```
