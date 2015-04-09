@@ -23,12 +23,12 @@ class RemoveSiteCommand extends SelimCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input,$output);
         $name = $input->getArgument('name');
+        $cfg = $this->getSelimConfig($input);
 
-        if ($this->config->siteExists($name)) {
-            $this->config->removeSite($name);
-            $this->config->write();
+        if ($cfg->siteExists($name)) {
+            $cfg->removeSite($name);
+            $cfg->write();
             echo "removed: '$name'".PHP_EOL;
         } else {
             Util::reportError("Site with name '$name' doesn't exists!");

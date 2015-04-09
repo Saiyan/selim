@@ -2,39 +2,24 @@
 
 namespace Selim\Commands;
 
+use Selim\SelimApplication;
 use Selim\SelimConfig;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class SelimCommand extends Command{
+abstract class SelimCommand extends Command{
 
-    public function __construct($name = null)
-    {
-        parent::__construct();
-        $this->config =  SelimConfig::getInstance();
+    /**
+     * @return SelimConfig
+     */
+    protected function getSelimConfig(InputInterface $input){
+        return $this->getApplication()->getSelimConfig($input);
     }
 
-    protected function configure()
-    {
-        /*$this
-            ->addOption(
-                'config',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                'custom path to your config.json'
-            );
-        */
+    /**
+     * @return SelimApplication
+     */
+    public function getApplication(){
+        return parent::getApplication();
     }
-
-    protected function execute(InputInterface $input, OutputInterface $output) {
-        /*
-        $cfg_path = $input->getOption("config");
-        if ($cfg_path) {
-            $this->config->setPath($cfg_path);
-        }
-        */
-    }
-
-    protected $config;
 }

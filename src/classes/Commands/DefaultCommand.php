@@ -48,7 +48,8 @@ class DefaultCommand extends SelimCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $sites = $this->config->getSites();
+        $cfg = $this->getSelimConfig($input);
+        $sites = $cfg->getSites();
 
         $filter_name = $input->getOption("filter-name");
         if (strlen($filter_name)) {

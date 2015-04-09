@@ -23,12 +23,12 @@ class SecuritySiteCommand extends SelimCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input,$output);
         $name = $input->getArgument('name');
+        $cfg = $this->getSelimConfig($input);
 
-        if ($this->config->siteExists($name)) {
+        if ($cfg->siteExists($name)) {
             echo "Security-test for $name:".PHP_EOL;
-            $site = $this->config->getSite($name);
+            $site = $cfg->getSite($name);
             $sc = new \Selim\SecurityChecker(new \Selim\SilverstripePage($site));
             $vulns = $sc->findVulnerabilities(true);
             foreach ($vulns as $vul) {

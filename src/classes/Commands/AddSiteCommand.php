@@ -30,10 +30,11 @@ class AddSiteCommand extends SelimCommand{
         parent::execute($input,$output);
         $name = $input->getArgument('name');
         $path = $input->getArgument('path');
+        $cfg = $this->getSelimConfig($input);
 
-        if (!$this->config->siteExists($name)) {
-            $this->config->addSite($name, $path);
-            $this->config->write();
+        if (!$cfg->siteExists($name)) {
+            $cfg->addSite($name, $path);
+            $cfg->write();
             echo "added: '$name'".PHP_EOL;
         } else {
             echo "Site with name '$name' already exists!".PHP_EOL;

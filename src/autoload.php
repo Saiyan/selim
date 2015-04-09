@@ -19,6 +19,7 @@ class AutoLoader
         require_once __DIR__.'/classes/Commands/AddSiteCommand.php';
         require_once __DIR__.'/classes/Commands/RemoveSiteCommand.php';
         require_once __DIR__.'/classes/Commands/SecurityCommand.php';
+        require_once __DIR__.'/classes/SelimApplication.php';
         require_once __DIR__.'/classes/SecurityChecker.php';
     }
 }
