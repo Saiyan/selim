@@ -25,7 +25,7 @@ class FindSitesCommand extends SelimCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input,$output);
+        $cfg = $this->getSelimConfig($input);
         $path = realpath($input->getArgument("path"));
         $projects = array();
         $question_helper =  $this->getHelper("question");
@@ -52,16 +52,16 @@ class FindSitesCommand extends SelimCommand{
                 $question = new Question("Please enter name for '$p' (leave empty to skip)");
                 do {
                     $name = $question_helper->ask($input, $output, $question);
-                }while($this->config->siteExists($name));
+                }while($cfg->siteExists($name));
 
                 if($name){
                     $sites_added = true;
-                    $this->config->addSite($name,$p);
+                    $cfg->addSite($name,$p);
                 }
             }
             if($sites_added) {
                 $output->write("Writing config.json ...");
-                $this->config->write();
+                $cfg->write();
                 $output->writeln("OK");
             }
         }
