@@ -14,9 +14,9 @@ use Symfony\Component\Console\Input\InputOption;
 
 $application = new SelimApplication();
 // Add global Options to the Application
-$application->getDefinition()->addOptions([
-    new InputOption('--config', '-c', InputOption::VALUE_REQUIRED, 'Path of config.json that should be used.'),
-]);
+$application->getDefinition()->addOptions(array(
+    new InputOption('--config', '-c', InputOption::VALUE_REQUIRED, 'Path of config.json that should be used.')
+));
 
 $application->add(new AddSiteCommand());
 $application->add(new DefaultCommand());
