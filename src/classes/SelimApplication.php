@@ -16,7 +16,10 @@ class SelimApplication extends Application {
      */
     public function getSelimConfig(InputInterface $input){
         $config_path = $input->getOption('config');
-        $this->selim_config->setPath($config_path);
+        if($config_path) {
+            $this->selim_config->setPath($config_path);
+        }
+        return $this->selim_config;
     }
 
     protected $selim_config;
