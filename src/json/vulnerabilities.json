@@ -1,5 +1,33 @@
 [
   {
+    "title": "SS-2015-014: Vulnerability on 'isDev', 'isTest' and 'flush' $_GET validation",
+    "url": "https://www.silverstripe.org/software/download/security-releases/ss-2015-014/",
+    "severity": "Important",
+    "affected": ["3.0","3.1"],
+    "fixed": ["3.0.14", "3.1.13"]
+  },
+  {
+    "title": "SS-2015-013: X-Forwarded-Host request hostname injection",
+    "url": "https://www.silverstripe.org/software/download/security-releases/ss-2015-013/",
+    "severity": "Important",
+    "affected": ["3.1"],
+    "fixed": ["3.1.13"]
+  },
+  {
+    "title": "SS-2015-012: External redirection risk in Security?ReturnURL",
+    "url": "https://www.silverstripe.org/software/download/security-releases/ss-2015-012/",
+    "severity": "Low",
+    "affected": ["3.0","3.1"],
+    "fixed": ["3.0.14", "3.1.13"]
+  },
+  {
+    "title": "SS-2015-011: Potential SQL Injection Vulnerability",
+    "url": "https://www.silverstripe.org/software/download/security-releases/ss-2015-011/",
+    "severity": "Low",
+    "affected": ["3.0","3.1"],
+    "fixed": ["3.0.14","3.1.13"]
+  },
+  {
     "title": "SS-2014-017: XML Quadratic Blowup Attack",
     "url": "http://www.silverstripe.org/software/download/security-releases/ss-2014-017-xml-quadratic-blowup-attack/",
     "severity": "Low",
