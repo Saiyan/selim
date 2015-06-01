@@ -6,6 +6,7 @@ use File_Iterator_Factory;
 use Selim\Util;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
@@ -20,12 +21,18 @@ class FindSitesCommand extends SelimCommand{
                 'path',
                 InputArgument::REQUIRED,
                 'Path where the script should start searching recursively'
+            )->addOption(
+                'skip-known-paths',
+                's',
+                InputOption::VALUE_NONE,
+                'Skip all paths which are already in your selim config'
             );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $cfg = $this->getSelimConfig($input);
+        $skippaths = $input->getOption("skip-known-paths") ? true : false;
         $path = realpath($input->getArgument("path"));
         $projects = array();
         $question_helper =  $this->getHelper("question");
@@ -49,6 +56,8 @@ class FindSitesCommand extends SelimCommand{
             $sites_added = false;
             $output->writeln("found ".count($projects)." possible sites");
             foreach($projects as $p){
+                if($skippaths && $cfg->sitePathExists($p)) continue;
+
                 $question = new Question("Please enter name for '$p' (leave empty to skip)");
                 do {
                     $name = $question_helper->ask($input, $output, $question);

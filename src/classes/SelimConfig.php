@@ -23,6 +23,15 @@ class SelimConfig
         $this->vulnerabilities = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
     }
 
+    public function sitePathExists($path) {
+        foreach($this->sites as $site){
+            if(dirname($path) === dirname($site->path)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     final private function __clone()
     {
     }
