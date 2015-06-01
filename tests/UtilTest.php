@@ -72,16 +72,16 @@ class UtilTests extends PHPUnit_Framework_TestCase
     public function testForceStringMinLength()
     {
         $str1 = "one";
-        Util::forceStringMinLength($str, 10);
-        $this->assertGreaterThanOrEqual(10, strlen($str));
+        Util::forceStringMinLength($str1, 10);
+        $this->assertGreaterThanOrEqual(10, strlen($str1));
 
         $str2 = "two";
-        Util::forceStringMinLength($str, 100);
-        $this->assertGreaterThanOrEqual(100, strlen($str));
+        Util::forceStringMinLength($str2, 100);
+        $this->assertGreaterThanOrEqual(100, strlen($str2));
 
         $str3 = "three";
-        Util::forceStringMinLength($str, 5);
-        $this->assertGreaterThanOrEqual(5, strlen($str));
+        Util::forceStringMinLength($str3, 5);
+        $this->assertGreaterThanOrEqual(5, strlen($str3));
     }
 
     public function testFilterPagesByModules(){
@@ -95,6 +95,20 @@ class UtilTests extends PHPUnit_Framework_TestCase
 
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page2");
+    }
+
+    public function testFilterPagesByDefaultAdmin() {
+        $pages = array(
+            TestPage::getPage1()->sspage,
+            TestPage::getPage2()->sspage,
+            TestPage::getPage3()->sspage,
+        );
+
+        $si = Util::filterPagesByDefaultAdmin($pages, true);
+        $this->assertEquals(1, count($si));
+
+        $si = Util::filterPagesByDefaultAdmin($pages, false);
+        $this->assertEquals(2, count($si));
     }
 
     public function testFilterPagesByVersion(){

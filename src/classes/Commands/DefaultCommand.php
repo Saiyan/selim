@@ -43,6 +43,11 @@ class DefaultCommand extends SelimCommand{
                 't',
                 InputOption::VALUE_NONE,
                 'Print all sites as a table'
+            )->addOption(
+                'filter-da',
+                'da',
+                InputOption::VALUE_NONE,
+                'regex, filter sites where Security::setDefaultAdmin() is used in config.php'
             );
     }
 
@@ -71,6 +76,10 @@ class DefaultCommand extends SelimCommand{
         $filter_module = $input->getOption("filter-module");
         if (strlen($filter_module)) {
             $sspages = Util::filterPagesByModules($sspages, $filter_module);
+        }
+
+        if ($input->getOption("filter-da")) {
+            $sspages = Util::filterPagesByDefaultAdmin($sspages, true);
         }
 
         if ($input->getOption("table")) {

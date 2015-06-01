@@ -82,6 +82,20 @@ class Util
         return $arr;
     }
 
+    public static function filterPagesByDefaultAdmin($sspages, $da_val = true) {
+        $arr = array();
+        $da_val = $da_val == true ? true : false;
+        foreach ($sspages as $sspage) {
+            if (!$sspage instanceof SilverstripePage) {
+                continue;
+            }
+            if ($sspage->hasDefaultAdmin() === $da_val) {
+                array_push($arr, $sspage);
+            }
+        }
+        return $arr;
+    }
+
     /**
      * @param $version "1.1.1" "2.1.4" "2.0"
      *

@@ -131,6 +131,12 @@ Some Examples
 --filter-module=userforms
 ```
 
+#####--filter-da=
+```
+//list only sites which use Security::setDefaultAdmin   
+--filter-da
+```
+
 ### global options
 #### --config=
 
