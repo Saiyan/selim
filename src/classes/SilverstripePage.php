@@ -111,7 +111,7 @@ class SilverstripePage
         if ($et && $et["env"]) {
             $this->envtype = $et["env"][0];
         } else {
-            $this->envtype = "N/A";
+            $this->envtype = "live";
         }
 
         if ($this->path_configyml) {
@@ -176,7 +176,7 @@ class SilverstripePage
             return $matches;
         }
 
-        return;
+        return null;
     }
 
     /**

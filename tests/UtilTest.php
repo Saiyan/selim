@@ -123,4 +123,24 @@ class UtilTests extends PHPUnit_Framework_TestCase
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page1");
     }
+
+    public function testFilterPagesByEnvironmentType(){
+        $pages = array(
+            TestPage::getPage1()->sspage,
+            TestPage::getPage2()->sspage,
+            TestPage::getPage3()->sspage,
+        );
+
+        $filtered = Util::filterPagesByEnvironmentType($pages,"dev");
+        $this->assertCount(1,$filtered);
+        $this->assertEquals($filtered[0]->getName(),"page1");
+
+        $filtered = Util::filterPagesByEnvironmentType($pages,"test");
+        $this->assertCount(0,$filtered);
+
+        $filtered = Util::filterPagesByEnvironmentType($pages,"live");
+        $this->assertEquals($filtered[0]->getName(),"page2");
+        $this->assertEquals($filtered[1]->getName(),"page3");
+        $this->assertCount(2,$filtered);
+    }
 }

@@ -68,6 +68,34 @@ class Util
         return $arr;
     }
 
+
+    /**
+     * @param array $sspages
+     * @param string $env environment type dev OR live OR test
+     *
+     * @return array all SilverstripePages that have environment_type $env
+     */
+    public static function filterPagesByEnvironmentType($sspages, $env) {
+        $arr = array();
+        if(preg_match("/^(dev|test|live)$/",$env) === 1){
+            foreach ($sspages as $sspage) {
+                if (!$sspage instanceof SilverstripePage) {
+                    continue;
+                }
+                if ($env === $sspage->getEnvironmentType()) {
+                    array_push($arr, $sspage);
+                }
+            }
+        }
+        return $arr;
+    }
+
+    /**
+     * @param array $sspages
+     * @param string $filterRegex environment type dev OR live OR test
+     *
+     * @return array all SilverstripePages where the version string matches $filterRegex
+     */
     public static function filterPagesByVersion($sspages, $filterRegex) {
         $arr = array();
         foreach ($sspages as $sspage) {

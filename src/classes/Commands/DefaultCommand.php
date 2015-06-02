@@ -20,34 +20,39 @@ class DefaultCommand extends SelimCommand{
             ->setDescription('Analyze all sites added.')
             ->addOption(
                 'filter-name',
-                'fn',
+                null,
                 InputOption::VALUE_REQUIRED,
                 'regex, filter sites by name'
             )->addOption(
                 'filter-version',
-                'fv',
+                null,
                 InputOption::VALUE_REQUIRED,
                 'regex, filter sites by version'
             )->addOption(
                 'filter-module',
-                'fm',
+                null,
                 InputOption::VALUE_REQUIRED,
                 'regex, filter sites by installed modules'
             )->addOption(
                 'format',
-                'f',
+                null,
                 InputOption::VALUE_REQUIRED,
                 'Define a output format.'
             )->addOption(
                 'table',
-                't',
+                null,
                 InputOption::VALUE_NONE,
                 'Print all sites as a table'
             )->addOption(
                 'filter-da',
-                'da',
+                null,
                 InputOption::VALUE_NONE,
                 'regex, filter sites where Security::setDefaultAdmin() is used in config.php'
+            )->addOption(
+                'filter-env',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'regex, filter sites by environment type'
             );
     }
 
@@ -80,6 +85,11 @@ class DefaultCommand extends SelimCommand{
 
         if ($input->getOption("filter-da")) {
             $sspages = Util::filterPagesByDefaultAdmin($sspages, true);
+        }
+
+        $filter_env = $input->getOption("filter-env");
+        if ($input->getOption("filter-env")) {
+            $sspages = Util::filterPagesByEnvironmentType($sspages, $filter_env);
         }
 
         if ($input->getOption("table")) {

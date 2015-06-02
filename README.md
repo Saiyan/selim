@@ -67,11 +67,11 @@ php bin/selim.php security NAME
 This is the main command to use with selim. "start" lists all sites that you added and their properties.
 
 ```
-php bin/selim.php start
+php bin/selim.php start [OPTIONS]
 ```
 
 #### options
-#####--format=
+#####--format
 
 if you start selim with a parameter which starts with "--format=" the analyzer will print every site in the specified format.  
 the standard-format-string looks something like this (without the line breaks) 
@@ -108,7 +108,7 @@ php bin/selim.php start --format=%s %cfgp%n
 php bin/selim.php start --format=%s %v%n
 ```
 
-#####--filter-name=
+#####--filter-name
 
 if you don't want to see all your sites listed you can filter the results shown to you with --filter-name=
 Everything after the parameter name will be interpreted as a Regular Expression and will be tested against the name of the site.
@@ -125,16 +125,22 @@ Some Examples
 --filter-name=\w+
 ```
 
-#####--filter-module=
+#####--filter-module
 ```
 //list only sites with userforms module  
 --filter-module=userforms
 ```
 
-#####--filter-da=
+#####--filter-da
 ```
 //list only sites which use Security::setDefaultAdmin   
 --filter-da
+```
+
+#####--filter-env
+```
+//list only sites which have a specific environment type set (dev,live or test)   
+--filter-env=dev
 ```
 
 ### global options
