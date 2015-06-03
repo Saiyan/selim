@@ -23,7 +23,13 @@ class SelimConfig
     }
 
     private function loadVulnerabilites() {
-        $this->vulnerabilities = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
+        $data = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
+        if(is_array($data)) {
+            $this->vulnerabilities = (array)$data;
+        }else{
+            Util::reportError("Can't parse vulnerability.json Aborting...");
+            return;
+        }
     }
 
     public function sitePathExists($path) {
