@@ -4,7 +4,7 @@ CLI Tool for scanning Silverstripe-CMS Installations
 
 [![Build Status](https://travis-ci.org/Saiyan/selim.svg?branch=master)](https://travis-ci.org/Saiyan/selim)
 [![Code Climate](https://codeclimate.com/github/Saiyan/selim/badges/gpa.svg)](https://codeclimate.com/github/Saiyan/selim)
-
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Saiyan/selim/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Saiyan/selim/?branch=master)
 
 
 ## Requirements
