@@ -1,6 +1,9 @@
 <?php
 
+
 namespace Selim;
+
+use Symfony\Component\HttpFoundation\Request;
 
 class SelimConfig
 {
@@ -38,11 +41,13 @@ class SelimConfig
 
     protected function __construct()
     {
+        $request = Request::createFromGlobals();
+        $server = $request->server;
         $selim_foldername = "/.selim/";
-        if(isset($_SERVER['HOME'])){
-            $conf_dir = $_SERVER['HOME'].$selim_foldername;
-        }else if(isset($_SERVER['HOMEDRIVE'])){
-            $conf_dir = "{$_SERVER['HOMEDRIVE']}{$_SERVER['HOMEPATH']}{$selim_foldername}";
+        if($server->get("HOME")){
+            $conf_dir = $server->get("HOME").$selim_foldername;
+        }else if($server->get("HOMEDRIVE")){
+            $conf_dir = "{$server->get("HOMEDRIVE")}{$server->get("HOMEPATH")}{$selim_foldername}";
         }else{
             Util::reportError("Can't find Homedir. Aborting...");
             return;
