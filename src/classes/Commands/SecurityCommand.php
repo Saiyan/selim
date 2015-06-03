@@ -2,6 +2,8 @@
 
 namespace Selim\Commands;
 
+use Selim\SecurityChecker;
+use Selim\SilverstripePage;
 use Selim\Util;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -29,7 +31,7 @@ class SecuritySiteCommand extends SelimCommand{
         if ($cfg->siteExists($name)) {
             echo "Security-test for $name:".PHP_EOL;
             $site = $cfg->getSite($name);
-            $sc = new \Selim\SecurityChecker(new \Selim\SilverstripePage($site));
+            $sc = new SecurityChecker(new SilverstripePage($site));
             $vulns = $sc->findVulnerabilities(true);
             foreach ($vulns as $vul) {
                 $severity = $vul["severity"] ? $vul["severity"] : "Warning";
