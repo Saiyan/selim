@@ -141,7 +141,8 @@ class SelimConfig
 
     public function removeSite($name)
     {
-        for ($i = 0; $i < count($this->sites);$i++) {
+        $size = count($this->sites);
+        for ($i = 0; $i < $size;$i++) {
             $s = $this->sites[$i];
             if ($s->name === $name) {
                 array_splice($this->sites, $i, 1);
