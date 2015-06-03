@@ -2,7 +2,7 @@
 
 namespace Selim;
 
-use SebastianBergmann\Exporter\Exception;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class SilverstripePage
@@ -69,12 +69,12 @@ class SilverstripePage
             $v = array();
             preg_match_all("/\\d+\\.\\d+\\.\\d+/", $content_ssv, $v);
 
-            if ($v && $v[0] && $v[0][0]) {
+            if ($v && $v[0] && isset($v[0][0])) {
                 $this->version = $v[0][0];
             }
         }
 
-        if ($this->version == null) {
+        if ($this->version === null) {
             if ($this->path_composer) {
                 $content_c = file_get_contents($this->path_composer);
                 $json = json_decode($content_c);
