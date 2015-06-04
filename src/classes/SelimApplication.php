@@ -12,6 +12,7 @@ class SelimApplication extends Application {
     }
 
     /**
+     * @param InputInterface $input
      * @return SelimConfig
      */
     public function getSelimConfig(InputInterface $input){

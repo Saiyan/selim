@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 abstract class SelimCommand extends Command{
 
     /**
+     * @param InputInterface $input
      * @return SelimConfig
      */
     protected function getSelimConfig(InputInterface $input){

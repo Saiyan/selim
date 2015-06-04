@@ -1,5 +1,7 @@
 <?php
 
+namespace Selim;
+
 class AutoLoader
 {
     public static function loadClass()

@@ -72,8 +72,7 @@ class Util
     /**
      * @param array $sspages
      * @param string $env environment type dev OR live OR test
-     *
-     * @return array all SilverstripePages that have environment_type $env
+     * @return array  all SilverstripePages that have environment_type $env
      */
     public static function filterPagesByEnvironmentType($sspages, $env) {
         $arr = array();
@@ -110,9 +109,14 @@ class Util
         return $arr;
     }
 
+    /**
+     * @param SilverstripePage[] $sspages
+     * @param bool $da_val
+     * @return SilverstripePage[]
+     */
     public static function filterPagesByDefaultAdmin($sspages, $da_val = true) {
         $arr = array();
-        $da_val = $da_val == true ? true : false;
+        $da_val = $da_val === true ? true : false;
         foreach ($sspages as $sspage) {
             if (!$sspage instanceof SilverstripePage) {
                 continue;

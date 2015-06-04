@@ -2,6 +2,7 @@
 
 namespace Selim;
 
+use Exception;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -69,7 +70,7 @@ class SilverstripePage
             $v = array();
             preg_match_all("/\\d+\\.\\d+\\.\\d+/", $content_ssv, $v);
 
-            if ($v && $v[0] && isset($v[0][0])) {
+            if (!empty($v) && !empty($v[0]) && isset($v[0][0])) {
                 $this->version = $v[0][0];
             }
         }
@@ -180,7 +181,8 @@ class SilverstripePage
     }
 
     /**
-     * @return boolean
+     * @param string $regex
+     * @return bool
      */
     public function hasModule($regex)
     {

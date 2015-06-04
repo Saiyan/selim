@@ -86,22 +86,22 @@ class UtilTests extends PHPUnit_Framework_TestCase
 
     public function testFilterPagesByModules(){
         $pages = array(
-            TestPage::getPage1()->sspage,
-            TestPage::getPage2()->sspage,
-            TestPage::getPage3()->sspage,
+            TestPage::getPage1()->getSSpage(),
+            TestPage::getPage2()->getSSpage(),
+            TestPage::getPage3()->getSSpage(),
         );
 
         $filtered = Util::filterPagesByModules($pages,"moduleX");
-
+        /* @var $filtered \Selim\SilverstripePage[] */
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page2");
     }
 
     public function testFilterPagesByDefaultAdmin() {
         $pages = array(
-            TestPage::getPage1()->sspage,
-            TestPage::getPage2()->sspage,
-            TestPage::getPage3()->sspage,
+            TestPage::getPage1()->getSSpage(),
+            TestPage::getPage2()->getSSpage(),
+            TestPage::getPage3()->getSSpage(),
         );
 
         $si = Util::filterPagesByDefaultAdmin($pages, true);
@@ -113,25 +113,26 @@ class UtilTests extends PHPUnit_Framework_TestCase
 
     public function testFilterPagesByVersion(){
         $pages = array(
-            TestPage::getPage1()->sspage,
-            TestPage::getPage2()->sspage,
-            TestPage::getPage3()->sspage,
+            TestPage::getPage1()->getSSpage(),
+            TestPage::getPage2()->getSSpage(),
+            TestPage::getPage3()->getSSpage(),
         );
 
         $filtered = Util::filterPagesByVersion($pages,"^2.");
-
+        /* @var $filtered \Selim\SilverstripePage[] */
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page1");
     }
 
     public function testFilterPagesByEnvironmentType(){
         $pages = array(
-            TestPage::getPage1()->sspage,
-            TestPage::getPage2()->sspage,
-            TestPage::getPage3()->sspage,
+            TestPage::getPage1()->getSSpage(),
+            TestPage::getPage2()->getSSpage(),
+            TestPage::getPage3()->getSSpage(),
         );
 
         $filtered = Util::filterPagesByEnvironmentType($pages,"dev");
+        /* @var $filtered \Selim\SilverstripePage[] */
         $this->assertCount(1,$filtered);
         $this->assertEquals($filtered[0]->getName(),"page1");
 
