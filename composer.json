@@ -19,5 +19,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "4.4.0"
+    },
+    "autoload": {
+      "psr-4": {"Selim\\": "src/classes"}
     }
 }
