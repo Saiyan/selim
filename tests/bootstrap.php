@@ -1,7 +1,6 @@
 <?php
 
-require_once __DIR__.'/../src/autoload.php';
-spl_autoload_register(array('Selim\AutoLoader', 'loadClass'));
+require_once __DIR__.'/../vendor/autoload.php';
 
 $test_cfg = __DIR__."/config.json";
 
