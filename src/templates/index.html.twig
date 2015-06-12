@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selim export</title>
+</head>
+<body>
+<h1>{{ page_title }}</h1>
+
+<table id="sspages">
+    <tbody></tbody>
+    {% for page in sspages %}
+        <tr>
+            <td class="name">{{ page.getName }}</td>
+            <td class="version">{{ page.getVersion }}</td>
+            <td class="default-admin">
+                {% if page.hasDefaultAdmin %}
+                <div class="default-admin-yes">yes</div>
+                {% else %}
+                <div class="default-admin-no">no</div>
+                {%  endif %}
+            </td>
+            <td class="email-logging">
+                {% if page.hasDefaultAdmin %}
+                    <div class="email-logging-yes">yes</div>
+                {% else %}
+                    <div class="email-logging-no">no</div>
+                {%  endif %}
+            </td>
+            <td class="env-type"> {{ page.getEnvironmentType }}</td>
+            <td class="modules">
+                {% for module in page.getModules %}
+                    {{ module }}&nbsp;
+                {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Version</th>
+            <th>Default Admin</th>
+            <th>EmailLogging</th>
+            <th>EnvironmentType</th>
+            <th>Modules</th>
+        </tr>
+    </thead>
+</table>
+</body>
+</html>

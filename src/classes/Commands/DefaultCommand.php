@@ -4,9 +4,11 @@ namespace Selim\Commands;
 
 use Selim\ConsoleOutput;
 use Selim\ConsoleOutputTable;
+use Selim\HtmlOutput;
 use Selim\SilverstripePage;
 use Selim\SiteConfig;
 use Selim\Util;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,6 +21,11 @@ class DefaultCommand extends SelimCommand{
             ->setName('start')
             ->setDescription('Analyze all sites added.')
             ->addOption(
+                'html-export-path',
+                'e',
+                InputOption::VALUE_REQUIRED,
+                'Path where the html files should be stored.'
+            )->addOption(
                 'filter-name',
                 null,
                 InputOption::VALUE_REQUIRED,
@@ -56,8 +63,7 @@ class DefaultCommand extends SelimCommand{
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $cfg = $this->getSelimConfig($input);
         $sites = $cfg->getSites();
 
@@ -92,7 +98,12 @@ class DefaultCommand extends SelimCommand{
             $sspages = Util::filterPagesByEnvironmentType($sspages, $filter_env);
         }
 
-        if ($input->getOption("table")) {
+        $export_path = $input->getOption("html-export-path");
+        if ($export_path) {
+            $out = new HtmlOutput($sspages);
+            $out->write($export_path);
+            return;
+        } else if ($input->getOption("table")) {
             $out = new ConsoleOutputTable($sspages);
         } else {
             $out = new ConsoleOutput($sspages);
@@ -103,6 +114,7 @@ class DefaultCommand extends SelimCommand{
             $out->write($format);
         } else {
             $out->write();
+            return;
         }
     }
 }
