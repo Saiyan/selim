@@ -1,5 +1,19 @@
 [
   {
+    "title": "SS-2015-016: XSS in install.php",
+    "url": "https://www.silverstripe.org/download/security-releases/ss-2015-016/",
+    "severity": "Low ",
+    "affected": ["3.1"],
+    "fixed": ["3.1.13"]
+  },
+  {
+    "title": "SS-2015-015: XSS in dev/build returnURL Parameter",
+    "url": "https://www.silverstripe.org/download/security-releases/ss-2015-015/",
+    "severity": "Low",
+    "affected": ["3.1"],
+    "fixed": ["3.1.14"]
+  },
+  {
     "title": "SS-2015-014: Vulnerability on 'isDev', 'isTest' and 'flush' $_GET validation",
     "url": "https://www.silverstripe.org/software/download/security-releases/ss-2015-014/",
     "severity": "Important",
