@@ -27,7 +27,6 @@ class AddSiteCommand extends SelimCommand{
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        parent::execute($input,$output);
         $name = $input->getArgument('name');
         $path = $input->getArgument('path');
         $cfg = $this->getSelimConfig($input);

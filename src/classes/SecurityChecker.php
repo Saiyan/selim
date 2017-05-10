@@ -4,50 +4,37 @@ namespace Selim;
 
 class SecurityChecker
 {
-    private $sspage;
-
-    public function __construct(SilverstripePage $sspage)
+    protected static $_instance = null;
+    public static function getInstance()
     {
-        $this->sspage = $sspage;
+        if (null === self::$_instance)
+        {
+            self::$_instance = new self;
+        }
+        return self::$_instance;
     }
 
-    public function findVulnerabilities($is_cli = false)
+    protected function __clone() {}
+
+    protected function __construct() {}
+
+    public function findIssues(SilverstripePage $sspage, $is_cli = false)
     {
-        $version = $this->sspage->getVersion();
+        $issues = [];
+
+        $version = $sspage->getVersion();
         if ($is_cli && !Util::VersionStringsGreaterThenOrEqual($version, "3.0")) {
-            echo "IMPORTANT: It seems as if you are running Silverstripe 2. This Version of Silverstripe will only be supported until March 31st 2015".PHP_EOL;
+            array_push($issues, "IMPORTANT: It seems as if you are running Silverstripe 2. Support for this version of Silverstripe ended March 31st 2015");
         }
 
-        if($this->sspage->hasDefaultAdmin()){
-            echo "IMPORTANT: It seems as if this instance of silverstipe uses Security::setDefaultAdmin()";
+        if($sspage->hasDefaultAdmin()){
+            array_push($issues, "IMPORTANT: Security::setDefaultAdmin() is used.");
         }
 
-        return self::findVulnerabilitiesForVersion($version);
-    }
-
-    public static function findVulnerabilitiesForVersion($version)
-    {
-        $scv = SelimConfig::getInstance()->getVulnarabilityDb();
-        $vulnerabilities = array();
-        foreach ($scv as $vuln) {
-            //Check if this version is affected by any vulnerabilities
-            foreach ($vuln["affected"] as $aff) {
-                if (strpos($version, $aff) === 0) {
-                    $isfixed = false;
-                    //Check if vulnarability is fixed in this version
-                    foreach ($vuln["fixed"] as $fix) {
-                        if (Util::VersionStringsGreaterThenOrEqual($version, $fix)) {
-                            $isfixed = true;
-                            break;
-                        }
-                    }
-                    if (!$isfixed) {
-                        array_push($vulnerabilities, $vuln);
-                    }
-                }
-            }
+        if($sspage->getEnvironmentType() == "dev"){
+            array_push($issues, "WARNING: Director.environment_type is set to 'dev'");
         }
 
-        return $vulnerabilities;
+        return $issues;
     }
 }

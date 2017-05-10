@@ -8,10 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 class SelimConfig
 {
     private $sites = array();
-    private $vulnerabilities = array();
     private static $uniqueInstance = null;
     private $path_config;
-    public static $path_vulnerabilities = "/../json/vulnerabilities.json";
 
     public static function getInstance()
     {
@@ -20,16 +18,6 @@ class SelimConfig
         }
 
         return self::$uniqueInstance;
-    }
-
-    private function loadVulnerabilites() {
-        $data = json_decode(file_get_contents(__DIR__.self::$path_vulnerabilities), true);
-        if(is_array($data)) {
-            $this->vulnerabilities = (array)$data;
-        }else{
-            Util::reportError("Can't parse vulnerability.json Aborting...");
-            return;
-        }
     }
 
     public function sitePathExists($path) {
@@ -68,7 +56,6 @@ class SelimConfig
         if (file_exists($this->path_config)) {
             self::load();
         }
-        self::loadVulnerabilites();
     }
 
     public function load()
@@ -155,14 +142,6 @@ class SelimConfig
                 break;
             }
         }
-    }
-
-    /**
-     * @return array all Vulnerabilities from json/vulnerabilities.json
-     */
-    public function getVulnarabilityDb()
-    {
-        return $this->vulnerabilities;
     }
 
     public function setPath($config_path = "",$is_cli = true) {

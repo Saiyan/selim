@@ -31,12 +31,15 @@ class SecurityCommand extends SelimCommand{
         if ($cfg->siteExists($name)) {
             echo "Security-test for $name:".PHP_EOL;
             $site = $cfg->getSite($name);
-            $sc = new SecurityChecker(new SilverstripePage($site));
-            $vulns = $sc->findVulnerabilities(true);
-            foreach ($vulns as $vul) {
-                $severity = $vul["severity"] ? $vul["severity"] : "Warning";
-                Util::forceStringMinLength($severity, 9);
-                echo "$severity ".$vul["title"].PHP_EOL;
+            $sc = SecurityChecker::getInstance();
+            $issues = $sc->findIssues(new SilverstripePage($site), true);
+
+            if(count($issues)) {
+                foreach ($issues as $iss) {
+                    echo $iss;
+                }
+            }else{
+                echo "No security issues found.";
             }
         } else {
             Util::reportError("Site with name '$name' doesn't exists!");

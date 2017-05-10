@@ -111,11 +111,7 @@ class SilverstripePage
         $et = $this->matchInConfigPhp("/\\s*Director::set_environment_type\\(\\s*['\"](?<env>dev|live|test*)['\"]\\s*\\);/m");
         if ($et && $et["env"]) {
             $this->envtype = $et["env"][0];
-        } else {
-            $this->envtype = "live";
-        }
-
-        if ($this->path_configyml) {
+        } else if ($this->path_configyml) {
             $content = file_get_contents($this->path_configyml);
             foreach (preg_split("/^---/m", $content) as $block) {
                 try {
@@ -132,6 +128,8 @@ class SilverstripePage
                 }
             }
         }
+
+        if(!$this->envtype) $this->envtype = "live";
     }
 
     private function readModules()
@@ -164,7 +162,7 @@ class SilverstripePage
      *
      * @param string $regex
      *
-     * @return boolean
+     * @return boolean|array
      */
     private function matchInConfigPhp($regex)
     {
