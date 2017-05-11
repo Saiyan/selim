@@ -71,6 +71,12 @@ php bin/selim.php start [OPTIONS]
 ```
 
 #### options
+####---html
+To generate html and send the output to a html file you could do something like this.
+```
+php bin/selim.php start --html > htmloutput.html
+```
+
 #####--template
 
 Default:
