@@ -1,7 +1,11 @@
-Site:            <?php echo $name ?> <?php echo $newline ?>
-Version:         <?php echo $version ?> <?php echo $newline ?>
-DefaultAdmin:    <?php echo $daText ?> <?php echo $newline ?>
-EmailLogging:    <?php echo $elText ?> <?php echo $newline ?>
-EnvironmentType: <?php echo $etText ?> <?php echo $newline ?>
-Modules:
+{% for page in pages %}
 
+Site:            {{ page.getName }}
+Root:            {{ page.getRootPath }}
+Version:         {{ page.getVersion }}
+DefaultAdmin:    {{ page.hasDefaultAdmin }}
+EmailLogging:    {{ page.hasEmailLogging }}
+EnvironmentType: {{ page.getEnvironmentType }}
+Modules:         {% for module in page.getModules %}{{ module }} {% endfor %}
+
+{% endfor %}

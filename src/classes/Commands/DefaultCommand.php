@@ -34,10 +34,10 @@ class DefaultCommand extends SelimCommand{
                 InputOption::VALUE_REQUIRED,
                 'regex, filter sites by installed modules'
             )->addOption(
-                'format',
+                'template',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Define a output format.'
+                'Path to a twig template which will be used to print out the pages.'
             )->addOption(
                 'table',
                 null,
@@ -98,9 +98,9 @@ class DefaultCommand extends SelimCommand{
             $out = new ConsoleOutput($sspages);
         }
 
-        $format = $input->getOption("format");
-        if (strlen($format)) {
-            $out->write($format);
+        $template = $input->getOption("template");
+        if (strlen($template)) {
+            $out->write($template);
         } else {
             $out->write();
         }

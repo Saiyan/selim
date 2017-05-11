@@ -2,32 +2,43 @@
 
 namespace Selim;
 
-use Symfony\Component\Templating\PhpEngine;
-use Symfony\Component\Templating\TemplateNameParser;
-use Symfony\Component\Templating\Loader\FilesystemLoader;
+use Twig_Loader_Filesystem;
 
 class ConsoleOutput extends Output implements IOutput
 {
 
-    public function write($format = '')
+    private static function getTemplate($templateFile)
     {
-        foreach ($this->pages as $sspage) {
-            if ($sspage instanceof SilverstripePage) {
-                //echo self::formatSSpage($sspage, $format);
-                echo self::render($sspage);
+        if(strlen($templateFile)){
+            $templatePath = realpath($templateFile);
+            if(!realpath($templateFile)) {
+                echo "Could not read $templateFile.".PHP_EOL;
+                die;
             }
+            $templatePathInfo = pathinfo($templatePath);
+            $dir = $templatePathInfo['dirname'];
+            $filename = $templatePathInfo['filename'].'.'.$templatePathInfo['extension'];
+            $loader = new Twig_Loader_Filesystem($dir);
+            $twig = new \Twig_Environment($loader);
+            $template = $twig->load($filename);
+        }else{
+            $loader = new Twig_Loader_Filesystem(__DIR__.'/../views/');
+            $twig = new \Twig_Environment($loader);
+            $template = $twig->load('default_default.twig');
         }
+        return $template;
     }
 
-    private static function render(SilverstripePage $sspage){
-        $loader = new FilesystemLoader(__DIR__.'/../views/%name%');
+    public function write($templateFile = '')
+    {
+        $template = self::getTemplate($templateFile);
+        echo str_replace('\n', PHP_EOL, $template->render(array('pages' => $this->pages)));
+    }
 
-        $templating = new PhpEngine(new TemplateNameParser(), $loader);
-
-        echo $templating->render('default_default.php', array('firstname' => 'Fabien'));
+    private static function render(SilverstripePage $sspage, $templateFile){
+        $template = self::getTemplate($templateFile);
 
         $values = array(
-            "newline" => PHP_EOL,
             "name" => $sspage->getName(),
             "version" => $sspage->getVersion(),
             "daText" => $sspage->hasDefaultAdmin(),
@@ -39,31 +50,8 @@ class ConsoleOutput extends Output implements IOutput
             "root_path" => $sspage->getRootPath(),
         );
 
-        echo $templating->render('default_default.php', $values);
+        return str_replace('\n', PHP_EOL, $template->render($values));
     }
 
-    private static $format_default = "Site:            %s%nVersion:         %v%nDefaultAdmin:    %da%nEmailLogging:    %el%nEnvironmentType: %et%nModules:         %mo%n%n";
 
-    private static function formatSSpage(SilverstripePage $sspage, $format = '')
-    {
-        $format = $format ? $format : self::$format_default;
-        $placeholders = array(
-            "%n" => PHP_EOL,
-            "%s" => $sspage->getName(),
-            "%v" => $sspage->getVersion(),
-            "%da" => self::DefaultAdminText($sspage),
-            "%el" => self::EmailLoggingText($sspage),
-            "%et" => $sspage->getEnvironmentType(),
-            "%mo" =>  self::ModuleText($sspage),
-            "%cfgp" => $sspage->getConfigPhpPath(),
-            "%cfgy" => $sspage->getConfigYmlPath(),
-            "%root" => $sspage->getRootPath(),
-        );
-
-        foreach ($placeholders as $p => $v) {
-            $format = str_replace($p, $v, $format);
-        }
-
-        return $format;
-    }
 }

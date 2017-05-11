@@ -29,6 +29,11 @@ class SelimConfig
         return false;
     }
 
+    public function getPath()
+    {
+        return $this->path_config;
+    }
+
     final private function __clone()
     {
     }
@@ -76,7 +81,7 @@ class SelimConfig
     {
         file_put_contents($this->path_config, json_encode(array(
             "sites" => $this->sites,
-        )));
+        ), JSON_PRETTY_PRINT));
     }
 
     /**

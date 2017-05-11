@@ -31,7 +31,7 @@ class RemoveSiteCommand extends SelimCommand{
             $cfg->write();
             echo "removed: '$name'".PHP_EOL;
         } else {
-            Util::reportError("Site with name '$name' doesn't exists!");
+            Util::reportError("Site with name '$name' doesn't exists!".PHP_EOL);
         }
     }
 }

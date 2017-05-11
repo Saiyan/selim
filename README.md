@@ -71,41 +71,28 @@ php bin/selim.php start [OPTIONS]
 ```
 
 #### options
-#####--format
+#####--template
 
-if you start selim with a parameter which starts with "--format=" the analyzer will print every site in the specified format.  
-the standard-format-string looks something like this (without the line breaks) 
+Default:
+```
+{% for page in pages %}
 
-```
-Site:            %s%n
-Version:         %v%n
-DefaultAdmin:    %da%n
-EmailLogging:    %el%n
-EnvironmentType: %et%n
-Modules:         %mo%n
-```
+Site:            {{ page.getName }}
+Root:            {{ page.getRootPath }}
+Version:         {{ page.getVersion }}
+DefaultAdmin:    {{ page.hasDefaultAdmin }}
+EmailLogging:    {{ page.hasEmailLogging }}
+EnvironmentType: {{ page.getEnvironmentType }}
+Modules:         {% for module in page.getModules %}{{ module }} {% endfor %}
 
-You can use the following placeholders in your format:
-```
-%n    //Newline
-%s    //Sitename
-%v    //Version
-%da   //DefaultAdmin
-%el   //EmailLogging
-%et   //EnvironmentType
-%mo   //Modules
-%cfgp //Path to _config.php in your project folder
-%cfgy //Path to _config/config.yml in your project folder
-%root //Root directory of your Silverstripe-CMS
+{% endfor %}
 ```
 
-some examples
+
+Example:
 ```
  #List the names of all sites and the path to their _config.php
-php bin/selim.php start --format=%s %cfgp%n
-
- #List the names of all sites and the their version
-php bin/selim.php start --format=%s %v%n
+php bin/selim.php start --template=my_own_template.twig
 ```
 
 #####--filter-name

@@ -3,6 +3,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Selim\Commands\AddSiteCommand;
+use Selim\Commands\ConfigPathCommand;
 use Selim\Commands\DefaultCommand;
 use Selim\Commands\FindSitesCommand;
 use Selim\Commands\RemoveSiteCommand;
@@ -17,6 +18,7 @@ $application->getDefinition()->addOptions(array(
 ));
 
 $application->add(new AddSiteCommand());
+$application->add(new ConfigPathCommand());
 $application->add(new DefaultCommand());
 $application->add(new FindSitesCommand());
 $application->add(new RemoveSiteCommand());
