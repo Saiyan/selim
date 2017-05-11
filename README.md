@@ -71,13 +71,13 @@ php bin/selim.php start [OPTIONS]
 ```
 
 #### options
-####---html
+#### --html
 To generate html and send the output to a html file you could do something like this.
 ```
 php bin/selim.php start --html > htmloutput.html
 ```
 
-#####--template
+##### --template
 
 Default:
 ```
@@ -101,7 +101,7 @@ Example:
 php bin/selim.php start --template=my_own_template.twig
 ```
 
-#####--filter-name
+##### --filter-name
 
 if you don't want to see all your sites listed you can filter the results shown to you with --filter-name=
 Everything after the parameter name will be interpreted as a Regular Expression and will be tested against the name of the site.
@@ -118,19 +118,19 @@ Some Examples
 --filter-name=\w+
 ```
 
-#####--filter-module
+##### --filter-module
 ```
 //list only sites with userforms module  
 --filter-module=userforms
 ```
 
-#####--filter-da
+##### --filter-da
 ```
 //list only sites which use Security::setDefaultAdmin   
 --filter-da
 ```
 
-#####--filter-env
+##### --filter-env
 ```
 //list only sites which have a specific environment type set (dev,live or test)   
 --filter-env=dev
@@ -145,7 +145,7 @@ Naturally selim uses/generates the config.json file in its own directory. If you
 --config=/home/user/temp/my-selim-config-file
 ```
 
-##Build
+## Build
 Building a phar for selim is easy.
 Get the Repository.
 Use composer to install all dependencies.
