@@ -134,6 +134,7 @@ class SelimConfig
      */
     public function addSite($name, $path)
     {
+        $path = realpath($path);
         array_push($this->sites, new SiteConfig($name, $path));
     }
 
