@@ -39,6 +39,11 @@ class DefaultCommand extends SelimCommand{
                 InputOption::VALUE_REQUIRED,
                 'Path to a twig template which will be used to print out the pages.'
             )->addOption(
+                'html',
+                null,
+                InputOption::VALUE_NONE,
+                'Print all sites with the default html template.'
+            )->addOption(
                 'table',
                 null,
                 InputOption::VALUE_NONE,
@@ -96,6 +101,9 @@ class DefaultCommand extends SelimCommand{
             $out = new ConsoleOutputTable($sspages);
         } else {
             $out = new ConsoleOutput($sspages);
+            if ($input->getOption("html")) {
+                $out->setTemplate('default_html.twig');
+            }
         }
 
         $template = $input->getOption("template");

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Selim</title>
+    <style>
+        {{ include('default_html.css') }}
+    </style>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Site</th>
+                <th>Version</th>
+                <th>Default<br>Admin</th>
+                <th>EmailLog</th>
+                <th>EnvType</th>
+                <th>Modules</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for page in pages %}
+        <tr data-da="{{ page.hasDefaultAdmin ? 'true' : 'false' }}"
+            data-el="{{ page.hasEmailLogging ? 'true' : 'false' }}"
+            data-et="{{ page.getEnvironmentType }}">
+            <td class="name">
+                {{ page.getName }}<br>
+                <span class="root">{{ page.getRootPath }}</span>
+            </td>
+            <td class="version">{{ page.getVersion }}</td>
+            <td class="da">{{ page.hasDefaultAdmin ? 'true' : 'false' }}</td>
+            <td class="el">{{ page.hasEmailLogging ? 'true' : 'false' }}</td>
+            <td class="et">{{ page.getEnvironmentType }}</td>
+            <td class="modules">
+                <a href="#" class="module-toggle" data-ListID="#ModList{{ loop.index }}">Show</a>
+                <div id="#ModList{{ loop.index }}">
+                    <ul>
+                        {% for module in page.getModules %}
+                        <li>{{ module }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        {{ include('default_html.js') }}
+    </script>
+</body>
+</html>
