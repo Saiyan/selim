@@ -146,6 +146,8 @@ class SilverstripePage
                         case "cms":
                         case "framework":
                         case "sapphire":
+                        case "..":
+                        case ".":
                             break;
                         default:
                             array_push($modules, $f);
