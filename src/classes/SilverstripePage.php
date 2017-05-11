@@ -257,4 +257,8 @@ class SilverstripePage
     {
         return $this->path_root;
     }
+
+    public static function sortByRootPath(SilverstripePage $a, SilverstripePage $b){
+        return strcmp($a->getRootPath(), $b->getRootPath());
+    }
 }

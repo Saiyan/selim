@@ -78,6 +78,8 @@ class DefaultCommand extends SelimCommand{
             }
         }
 
+        usort($sspages, array(SilverstripePage::class, 'sortByRootPath'));
+
         $filter_version = $input->getOption("filter-version");
         if (strlen($filter_version)) {
             $sspages = Util::filterPagesByVersion($sspages, $filter_version);
