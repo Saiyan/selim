@@ -44,7 +44,7 @@ class SilverstripePageTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('3.1.10', $sspage->getVersion());
         $this->assertFalse($sspage->hasDefaultAdmin());
-        $this->assertFalse($sspage->hasEmailLogging());
+        $this->assertTrue($sspage->hasEmailLogging());
         $this->assertEquals('live', $sspage->getEnvironmentType());
         $this->assertEquals(realpath(__DIR__.'/pages/'.$projpath.'/_config.php'), $sspage->getConfigPhpPath());
         $this->assertEquals(realpath(__DIR__.'/pages/'.$projpath.'/_config/config.yml'), $sspage->getConfigYmlPath());

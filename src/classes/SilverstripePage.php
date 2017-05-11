@@ -104,6 +104,24 @@ class SilverstripePage
     {
         $m = $this->matchInConfigPhp("/\\s*SS_Log::add_writer\\(\\s*new\\s*SS_LogEmailWriter/m");
         $this->maillog = $m && $m[0] && $m[0][0] ? true : false;
+        if ($this->path_configyml) {
+            $content = file_get_contents($this->path_configyml);
+            foreach (preg_split("/^---/m", $content) as $block) {
+                try {
+                    //Seems like the Yaml parser doesnt like the commas in the first block of the _config.yml
+                    if (preg_match("~'framework/\\*','cms/\\*'~", $block)) {
+                        continue;
+                    }
+                    $yml = Yaml::parse($block);
+                    if ($yml && array_key_exists("SilverStripe\\Core\\Injector\\Injector", $yml)
+                        && array_key_exists("MailHandler", $yml["SilverStripe\\Core\\Injector\\Injector"])) {
+                        $this->maillog = true;
+                    }
+                } catch (ParseException $e) {
+                    echo $e->getMessage().PHP_EOL;
+                }
+            }
+        }
     }
 
     private function readEnvironmentType()
